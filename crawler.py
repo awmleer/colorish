@@ -16,5 +16,5 @@ while True:
     #     converted.append(colorsys.rgb_to_hsv(c[0], c[1], c[2]))
     # print(converted)
     f.write(json.dumps(result) + '\n')
-    time.sleep(1)
+    time.sleep(0.3)
 

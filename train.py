@@ -1,5 +1,6 @@
 import colorsys
 import json
+import random
 
 import torch
 import torch.nn as nn
@@ -13,7 +14,7 @@ class RNN(nn.Module):
         self.i2o = nn.Linear(input_size + hidden_size, output_size)
         self.o2o = nn.Linear(hidden_size + output_size, output_size)
         # self.dropout = nn.Dropout(0.1)
-        # self.softmax = nn.LogSoftmax(dim=1)
+        self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, input, hidden):
         input_combined = torch.cat((input, hidden), 1)
@@ -22,7 +23,7 @@ class RNN(nn.Module):
         output_combined = torch.cat((hidden, output), 1)
         output = self.o2o(output_combined)
         # output = self.dropout(output)
-        # output = self.softmax(output)
+        output = self.softmax(output)
         return output, hidden
 
     def initHidden(self):
@@ -30,9 +31,10 @@ class RNN(nn.Module):
 
 
 
-criterion = nn.MSELoss()
+criterion = nn.SmoothL1Loss()
 
-learning_rate = 0.0005
+learning_rate = 0.005
+# learning_rate = 0.0005
 
 def train(input_line_tensor):
     # target_line_tensor = input_line_tensor.unsqueeze(-1)
@@ -56,7 +58,6 @@ def train(input_line_tensor):
     return output, loss.item() / input_line_tensor.size(0)
 
 
-
 rnn = RNN(3, 128, 3)
 
 with open('data/color.txt') as f:
@@ -65,7 +66,7 @@ with open('data/color.txt') as f:
         if line == '':
             break
         colors = json.loads(line)
-        print(colors)
+        # print(colors)
         input_tensor = torch.zeros(len(colors), 1, 3, dtype=torch.float)
         for i in range(len(colors)):
             color = colors[i]
@@ -77,3 +78,21 @@ with open('data/color.txt') as f:
 
 
 print('training finished')
+
+# for p in rnn.parameters():
+#     print(p)
+
+def sample():
+    with torch.no_grad():
+        hsv = colorsys.rgb_to_hsv(random.randrange(256), random.randrange(256), random.randrange(256))
+        input = torch.zeros(1, 3, dtype=torch.float)
+        hidden = rnn.initHidden()
+        input[0][0] = hsv[0]
+        input[0][1] = hsv[1]
+        input[0][2] = hsv[2]
+        for i in range(5):
+            output, hidden = rnn(input, hidden)
+            print(output)
+            input = output
+
+sample()
