@@ -33,7 +33,7 @@ class RNN(nn.Module):
 
 criterion = nn.SmoothL1Loss()
 
-learning_rate = 0.005
+learning_rate = 0.003
 # learning_rate = 0.0005
 
 def train(input_line_tensor):
@@ -61,6 +61,8 @@ def train(input_line_tensor):
 rnn = RNN(3, 128, 3)
 
 with open('data/color.txt') as f:
+    total_loss = 0
+    count = 0
     while True:
         line = f.readline()
         if line == '':
@@ -70,11 +72,16 @@ with open('data/color.txt') as f:
         input_tensor = torch.zeros(len(colors), 1, 3, dtype=torch.float)
         for i in range(len(colors)):
             color = colors[i]
-            hsv = colorsys.rgb_to_hsv(color[0], color[1], color[2])
+            hsv = colorsys.rgb_to_hsv(color[0]/256, color[1]/256, color[2]/256)
+            # print(hsv)
             input_tensor[i][0][0] = hsv[0]
             input_tensor[i][0][1] = hsv[1]
             input_tensor[i][0][2] = hsv[2]
-        train(input_tensor)
+        _, loss = train(input_tensor)
+        total_loss += loss
+        count = (count + 1) % 1000
+        if count == 0:
+            print('loss %.4f' % loss)
 
 
 print('training finished')
@@ -84,13 +91,14 @@ print('training finished')
 
 def sample():
     with torch.no_grad():
-        hsv = colorsys.rgb_to_hsv(random.randrange(256), random.randrange(256), random.randrange(256))
+        hsv = colorsys.rgb_to_hsv(random.randrange(256)/256, random.randrange(256)/256, random.randrange(256)/256)
         input = torch.zeros(1, 3, dtype=torch.float)
         hidden = rnn.initHidden()
         input[0][0] = hsv[0]
         input[0][1] = hsv[1]
         input[0][2] = hsv[2]
-        for i in range(5):
+        print(input)
+        for i in range(4):
             output, hidden = rnn(input, hidden)
             print(output)
             input = output
