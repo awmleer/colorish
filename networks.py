@@ -19,5 +19,6 @@ class RNN(nn.Module):
         return output, hidden
 
     def initHidden(self):
-        return torch.rand(1, self.hidden_size)
+        return torch.zeros(1, self.hidden_size)
+
 
