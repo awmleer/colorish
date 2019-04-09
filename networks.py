@@ -1,7 +1,3 @@
-import colorsys
-import json
-import random
-
 import torch
 import torch.nn as nn
 
@@ -23,5 +19,5 @@ class RNN(nn.Module):
         return output, hidden
 
     def initHidden(self):
-        return torch.zeros(1, self.hidden_size)
+        return torch.rand(1, self.hidden_size)
 
