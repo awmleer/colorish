@@ -14,7 +14,7 @@ class RNN(nn.Module):
         self.i2o = nn.Linear(input_size + hidden_size, output_size)
         self.o2o = nn.Linear(hidden_size + output_size, output_size)
         # self.dropout = nn.Dropout(0.1)
-        self.softmax = nn.LogSoftmax(dim=1)
+        # self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, input, hidden):
         input_combined = torch.cat((input, hidden), 1)
@@ -23,7 +23,7 @@ class RNN(nn.Module):
         output_combined = torch.cat((hidden, output), 1)
         output = self.o2o(output_combined)
         # output = self.dropout(output)
-        output = self.softmax(output)
+        # output = self.softmax(output)
         return output, hidden
 
     def initHidden(self):
@@ -33,7 +33,7 @@ class RNN(nn.Module):
 
 criterion = nn.SmoothL1Loss()
 
-learning_rate = 0.003
+learning_rate = 0.01
 # learning_rate = 0.0005
 
 def train(input_line_tensor):
@@ -81,13 +81,18 @@ with open('data/color.txt') as f:
         total_loss += loss
         count = (count + 1) % 1000
         if count == 0:
-            print('loss %.4f' % loss)
+            print('%.4f' % (total_loss/1000))
+            total_loss = 0
 
 
 print('training finished')
 
 # for p in rnn.parameters():
 #     print(p)
+
+def tensorToRGB(tensor):
+    rgb = colorsys.hsv_to_rgb(tensor[0][0].item(), tensor[0][1].item(), tensor[0][2].item())
+    return round(rgb[0] * 256), round(rgb[1] * 256), round(rgb[2] * 256)
 
 def sample():
     with torch.no_grad():
@@ -97,10 +102,10 @@ def sample():
         input[0][0] = hsv[0]
         input[0][1] = hsv[1]
         input[0][2] = hsv[2]
-        print(input)
+        print(tensorToRGB(input))
         for i in range(4):
             output, hidden = rnn(input, hidden)
-            print(output)
+            print(tensorToRGB(output))
             input = output
 
 sample()
