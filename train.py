@@ -3,61 +3,55 @@ import json
 
 import torch
 import torch.nn as nn
-from networks import RNN
+from networks import Discriminator
 
-criterion = nn.SmoothL1Loss()
+criterion = nn.MSELoss()
 
-learning_rate = 0.0005
-# learning_rate = 0.0005
+learning_rate = 0.01
 
-def train(input_line_tensor):
-    # target_line_tensor = input_line_tensor.unsqueeze(-1)
-    hidden = rnn.initHidden()
-
-    rnn.zero_grad()
-
-    loss = 0
-
-    for i in range(5):
-        output, hidden = rnn(input_line_tensor[i], hidden)
-        if i < 4:
-            l = criterion(output, input_line_tensor[i+1])
-            loss += l
-
+def train(input_line_tensor, isFake):
+    discriminator.zero_grad()
+    output = discriminator(input_line_tensor)
+    loss = criterion(output, torch.tensor(0.0) if isFake else torch.tensor(1.0))
     loss.backward()
 
-    for p in rnn.parameters():
+    for p in discriminator.parameters():
         p.data.add_(-learning_rate, p.grad.data)
 
-    return output, loss.item() / input_line_tensor.size(0)
+    return output, loss.item()
 
 
-rnn = RNN(3, 8, 3)
+discriminator = Discriminator()
 
-with open('data/color.txt') as f:
-    total_loss = 0
-    count = 0
-    while True:
-        line = f.readline()
-        if line == '':
-            break
-        colors = json.loads(line)
-        # print(colors)
-        input_tensor = torch.zeros(len(colors), 1, 3, dtype=torch.float)
-        for i in range(len(colors)):
-            color = colors[i]
-            hsv = colorsys.rgb_to_hsv(color[0]/256, color[1]/256, color[2]/256)
-            # print(hsv)
-            input_tensor[i][0][0] = hsv[0]
-            input_tensor[i][0][1] = hsv[1]
-            input_tensor[i][0][2] = hsv[2]
-        _, loss = train(input_tensor)
-        total_loss += loss
-        count = (count + 1) % 1000
-        if count == 0:
-            print('%.4f' % (total_loss/1000))
-            total_loss = 0
+colorFile = open('data/color.txt')
+fakeColorFile = open('data/fake-color.txt')
+
+total_loss = 0
+count = 0
+isFake = True
+while True:
+    isFake = not isFake
+    if isFake:
+        line = fakeColorFile.readline()
+    else:
+        line = colorFile.readline()
+    if line == '':
+        break
+    colors = json.loads(line)
+    # input_tensor = torch.zeros(15, dtype=torch.float)
+    data = []
+    for color in colors:
+        hsv = colorsys.rgb_to_hsv(color[0]/256, color[1]/256, color[2]/256)
+        for i in range(3):
+            data.append(hsv[i])
+    input_tensor = torch.tensor(data)
+    _, loss = train(input_tensor, isFake)
+    total_loss += loss
+    count = (count + 1) % 1000
+    if count == 0:
+        print('%.4f' % (total_loss/1000))
+        total_loss = 0
 
 
-torch.save(rnn.state_dict(), 'data/state-dict')
+torch.save(discriminator.state_dict(), 'data/discriminator-state-dict')
 print('training finished')
