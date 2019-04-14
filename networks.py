@@ -41,7 +41,7 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
         self.main = nn.Sequential(
             nn.Linear(32, 32), nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(32, 16), nn.Sigmoid(),
+            nn.Linear(32, 16), nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(16, 15), nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(15, 15)
         )
