@@ -22,15 +22,17 @@ class RNN(nn.Module):
         return torch.zeros(1, self.hidden_size)
 
 
-# class Discriminator(nn.Module):
-#     def __init__(self):
-#         super(Discriminator, self).__init__()
-#         self.main = nn.Sequential(
-#             nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
-#             nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
-#             nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
-#             nn.Sigmoid(),
-#         )
-#
-#     def forward(self, input):
-#         return self.main(input)
+class Discriminator(nn.Module):
+    def __init__(self):
+        super(Discriminator, self).__init__()
+        self.main = nn.Sequential(
+            nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(3, 3), nn.LeakyReLU(0.2, inplace=True),
+            nn.Sigmoid(),
+        )
+
+    def forward(self, input):
+        return self.main(input)
+
+
