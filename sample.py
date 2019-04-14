@@ -5,14 +5,14 @@ import random
 import torch
 
 from networks import RNN, Discriminator
-from utils import tensorToRGB, colorListToTensor
+from utils import tensorToRGB, color_list_to_tensor
 
 discriminator = Discriminator()
 discriminator.load_state_dict(torch.load('data/discriminator-state-dict'))
 
 def sample(colors):
     with torch.no_grad():
-        input_tensor = colorListToTensor(colors)
+        input_tensor = color_list_to_tensor(colors)
         output = discriminator(input_tensor)
         print(json.dumps(colors))
         print(output)

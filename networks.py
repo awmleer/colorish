@@ -32,7 +32,19 @@ class Discriminator(nn.Module):
             nn.Linear(5, 1)
         )
 
-    def forward(self, input):
-        return self.main(input)
+    def forward(self, input_tensor):
+        return self.main(input_tensor)
 
+
+class Generator(nn.Module):
+    def __init__(self):
+        super(Generator, self).__init__()
+        self.main = nn.Sequential(
+            nn.Linear(5, 15), nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(15, 15), nn.Sigmoid(),
+            nn.Linear(15, 15), nn.LeakyReLU(0.2, inplace=True),
+        )
+
+    def forward(self, input_tensor):
+        return self.main(input_tensor)
 
