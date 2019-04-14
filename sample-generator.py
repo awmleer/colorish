@@ -14,7 +14,7 @@ generator = Generator()
 generator.load_state_dict(torch.load('data/generator-state-dict'))
 
 def sample():
-    generated = generator(torch.rand(5))
+    generated = generator(torch.rand(32))
     print(tensorToRGB(generated.reshape((5, 3))))
 
 

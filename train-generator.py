@@ -15,7 +15,7 @@ learning_rate = 0.001
 
 def train():
     generator.zero_grad()
-    generated = generator(torch.rand(5))
+    generated = generator(torch.rand(32))
     output = discriminator(generated)
     loss = criterion(output, torch.tensor(1.0))
     loss.backward()

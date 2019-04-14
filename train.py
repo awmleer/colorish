@@ -7,7 +7,6 @@ from networks import Discriminator, Generator
 
 criterion = nn.MSELoss()
 
-learning_rate = 0.01
 
 discriminator = Discriminator()
 generator = Generator()
@@ -31,13 +30,14 @@ def get_real_color_tensor():
 
 
 
+discriminator_learning_rate = 0.01
 isFake = True
 def train_discriminator():
     discriminator.zero_grad()
     global isFake
     isFake = not isFake
     if isFake:
-        input_tensor = generator(torch.rand(5)).detach()
+        input_tensor = generator(torch.rand(32)).detach()
     else:
         input_tensor = get_real_color_tensor()
     if input_tensor is None:
@@ -47,19 +47,20 @@ def train_discriminator():
     loss.backward()
 
     for p in discriminator.parameters():
-        p.data.add_(-learning_rate, p.grad.data)
+        p.data.add_(-discriminator_learning_rate, p.grad.data)
 
     return output, loss.item()
 
 
+generator_learning_rate = 0.005
 def train_generator():
     generator.zero_grad()
-    generated = generator(torch.rand(5))
+    generated = generator(torch.rand(32))
     output = discriminator(generated)
     loss = criterion(output, torch.tensor(1.0))
     loss.backward()
     for p in generator.parameters():
-        p.data.add_(-learning_rate, p.grad.data)
+        p.data.add_(-generator_learning_rate, p.grad.data)
     return output, loss.item()
 
 
