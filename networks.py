@@ -27,9 +27,9 @@ class Discriminator(nn.Module):
         super(Discriminator, self).__init__()
         self.main = nn.Sequential(
             nn.Linear(15, 15), nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(15, 15), nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(15, 15), nn.LeakyReLU(0.2, inplace=True),
-            nn.Sigmoid(),
+            nn.Linear(15, 15), nn.Sigmoid(),
+            nn.Linear(15, 5), nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(5, 1)
         )
 
     def forward(self, input):

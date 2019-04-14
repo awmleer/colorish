@@ -1,29 +1,45 @@
 import colorsys
+import json
 import random
 
 import torch
 
-from networks import RNN
-from utils import tensorToRGB
+from networks import RNN, Discriminator
+from utils import tensorToRGB, colorListToTensor
 
-rnn = RNN(3, 8, 3)
+discriminator = Discriminator()
+discriminator.load_state_dict(torch.load('data/discriminator-state-dict'))
 
-rnn.load_state_dict(torch.load('data/state-dict'))
-
-def sample():
+def sample(colors):
     with torch.no_grad():
-        # hsv = colorsys.rgb_to_hsv(random.randrange(256)/256, random.randrange(256)/256, random.randrange(256)/256)
-        hsv = colorsys.rgb_to_hsv(32/256, 44/256, 225/256)
-        input = torch.zeros(1, 3, dtype=torch.float)
-        hidden = rnn.initHidden()
-        input[0][0] = hsv[0]
-        input[0][1] = hsv[1]
-        input[0][2] = hsv[2]
-        print(tensorToRGB(input))
-        for i in range(4):
-            output, hidden = rnn(input, hidden)
-            print(tensorToRGB(output))
-            input = output
+        input_tensor = colorListToTensor(colors)
+        output = discriminator(input_tensor)
+        print(json.dumps(colors))
+        print(output)
 
-sample()
+# rnn = RNN(3, 8, 3)
+#
+# rnn.load_state_dict(torch.load('data/state-dict'))
+#
+# def sample():
+#     with torch.no_grad():
+#         # hsv = colorsys.rgb_to_hsv(random.randrange(256)/256, random.randrange(256)/256, random.randrange(256)/256)
+#         hsv = colorsys.rgb_to_hsv(32/256, 44/256, 225/256)
+#         input = torch.zeros(1, 3, dtype=torch.float)
+#         hidden = rnn.initHidden()
+#         input[0][0] = hsv[0]
+#         input[0][1] = hsv[1]
+#         input[0][2] = hsv[2]
+#         print(tensorToRGB(input))
+#         for i in range(4):
+#             output, hidden = rnn(input, hidden)
+#             print(tensorToRGB(output))
+#             input = output
+
+with open('data/color-for-sample.txt') as f:
+    while True:
+        line = f.readline()
+        if line == '':
+            break
+        sample(json.loads(line))
 
