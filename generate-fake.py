@@ -12,6 +12,6 @@ generator.load_state_dict(torch.load('data/generator-state-dict'))
 f = open(sys.argv[1], mode='a')
 
 for _ in range(int(sys.argv[2])):
-    generated = generator(torch.rand(32))
+    generated = generator(torch.rand(16))
     colors = generated.reshape((5, 3)).tolist()
     f.write(json.dumps(colors) + '\n')

@@ -17,6 +17,17 @@ def color_list_to_tensor(colors):
     return torch.tensor(data)
 
 
+def tensor_to_color_list(tensor):
+    result = []
+    reshaped = tensor.reshape((5, 3))
+    for i in range(5):
+        color = []
+        rgb = colorsys.hsv_to_rgb(reshaped[i][0].item(), reshaped[i][1].item(), reshaped[i][2].item())
+        for c in rgb:
+            color.append(round(c * 256))
+        result.append(color)
+    return result
+
 def random_color_list():
     result = []
     for _ in range(5):

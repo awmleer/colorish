@@ -14,7 +14,7 @@ generator = Generator()
 def weights_init(m):
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.0, 0.5)
+        nn.init.normal_(m.weight.data, 0.05, 0.6)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
@@ -39,14 +39,14 @@ def get_real_color_tensor():
 
 
 
-discriminator_learning_rate = 0.02
+discriminator_learning_rate = 0.01
 isFake = True
 def train_discriminator():
     discriminator.zero_grad()
     global isFake
     isFake = not isFake
     if isFake:
-        input_tensor = generator(torch.rand(32)).detach()
+        input_tensor = generator(torch.rand(16)).detach()
     else:
         input_tensor = get_real_color_tensor()
     if input_tensor is None:
@@ -61,10 +61,10 @@ def train_discriminator():
     return output, loss.item()
 
 
-generator_learning_rate = 0.01
+generator_learning_rate = 0.02
 def train_generator():
     generator.zero_grad()
-    generated = generator(torch.rand(32))
+    generated = generator(torch.rand(16))
     output = discriminator(generated)
     loss = criterion(output, torch.tensor(1.0))
     loss.backward()
@@ -78,14 +78,15 @@ def main():
     training_generator = False
     total_loss = 0
     total_round = 100
-    batch_size = 2000
-    for i in range(total_round):
-        print('%d / %d' % (i, total_round))
+    batch_size = 500
+    for i in range(2 * total_round):
+        if i%2 == 0:
+            print('%d/%d' % (i//2 + 1, total_round))
         if training_generator:
-            print('training generator')
+            print('G', end=' ')
         else:
-            print('training discriminator')
-        for i in range(batch_size):
+            print('D', end=' ')
+        for _ in range(batch_size):
             if training_generator:
                 _, loss = train_generator()
             else:
@@ -94,7 +95,9 @@ def main():
                 return
             total_loss += loss
 
-        print('%.5f' % (total_loss / batch_size))
+        print('%.5f' % (total_loss / batch_size), end=' ')
+        if i%2 != 0:
+            print('')
 
         training_generator = not training_generator
         total_loss = 0
