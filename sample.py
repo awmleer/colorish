@@ -6,13 +6,14 @@ import torch
 from networks import RNN
 from utils import tensorToRGB
 
-rnn = RNN(3, 128, 3)
+rnn = RNN(3, 8, 3)
 
 rnn.load_state_dict(torch.load('data/state-dict'))
 
 def sample():
     with torch.no_grad():
-        hsv = colorsys.rgb_to_hsv(random.randrange(256)/256, random.randrange(256)/256, random.randrange(256)/256)
+        # hsv = colorsys.rgb_to_hsv(random.randrange(256)/256, random.randrange(256)/256, random.randrange(256)/256)
+        hsv = colorsys.rgb_to_hsv(32/256, 44/256, 225/256)
         input = torch.zeros(1, 3, dtype=torch.float)
         hidden = rnn.initHidden()
         input[0][0] = hsv[0]

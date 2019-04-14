@@ -32,7 +32,7 @@ def train(input_line_tensor):
     return output, loss.item() / input_line_tensor.size(0)
 
 
-rnn = RNN(3, 128, 3)
+rnn = RNN(3, 8, 3)
 
 with open('data/color.txt') as f:
     total_loss = 0
