@@ -1,9 +1,10 @@
 import json
 import random
+import sys
 
-f = open('data/fake-color.txt', mode='a')
+f = open(sys.argv[1], mode='a')
 
-for _ in range(20000) :
+for _ in range(int(sys.argv[2])) :
     result = []
     for _ in range(5):
         c = []
