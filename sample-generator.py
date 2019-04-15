@@ -1,6 +1,7 @@
 import colorsys
 import json
 import random
+import sys
 
 import torch
 
@@ -19,7 +20,7 @@ def sample():
     for color in colors:
         print('<div class="color-block" style="background-color: rgb(%d, %d, %d)"></div>' % (color[0], color[1], color[2]))
 
-for i in range(10):
+for i in range(int(sys.argv[1])):
     print('<div class="schema">')
     sample()
     print('</div>')
