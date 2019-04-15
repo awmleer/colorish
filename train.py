@@ -14,7 +14,7 @@ generator = Generator()
 def weights_init(m):
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.05, 0.6)
+        nn.init.normal_(m.weight.data, 0.08, 0.6)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
