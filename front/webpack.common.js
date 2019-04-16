@@ -9,39 +9,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
 
   entry: {
-    'widget': './src/entries/widget.tsx',
-    'app': './src/entries/app.tsx',
-    'support': './src/entries/support.tsx',
-    'admin': './src/entries/admin.tsx',
-    'portal': './src/entries/portal.tsx',
-    'widget-boot-up': './src/utils/widget-boot-up/widget-boot-up.ts',
+    'index': './src/entries/index.tsx',
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/entries/template.html',
-      filename: 'widget.html',
-      chunks: ['widget']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/entries/template.html',
-      filename: 'app.html',
-      chunks: ['app']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/entries/template.html',
-      filename: 'support.html',
-      chunks: ['support']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/entries/template.html',
-      filename: 'admin.html',
-      chunks: ['admin']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/entries/template.html',
-      filename: 'portal.html',
-      chunks: ['portal']
+      filename: 'index.html',
+      chunks: ['index']
     }),
   ],
 
