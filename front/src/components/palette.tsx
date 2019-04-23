@@ -9,7 +9,7 @@ import {memo} from 'react'
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 160px;
+  height: 300px;
 `
 
 const ColorBlock = styled.div<{
