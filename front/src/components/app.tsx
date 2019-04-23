@@ -5,6 +5,7 @@ import {NavBar} from './nav-bar'
 import {useBloc, useStream, withProvider} from 'jorum'
 import {SchemaBloc} from '../blocs/schema.bloc'
 import {Palette} from './palette'
+import {Poster} from './previews/poster'
 
 const Header = styled.div`
   padding: 12px;
@@ -12,6 +13,10 @@ const Header = styled.div`
 
 const PaletteContainer = styled.div`
   margin: 30px 0;
+`
+
+const Space = styled.div`
+  height: 30px;
 `
 
 export const App = withProvider({
@@ -33,9 +38,10 @@ export const App = withProvider({
                 <span>Generate</span>
               </button>
             </div>
-            <PaletteContainer>
-              <Palette/>
-            </PaletteContainer>
+            <Space/>
+            <Palette/>
+            <Space/>
+            <Poster/>
           </div>
         </section>
       </>

@@ -8,6 +8,7 @@ import {apiService} from '../services/api.service'
 export class SchemaBloc {
   generate$ = new Subject<void>()
   schema$: Observable<Color[]> = this.generate$.pipe(
+    startWith(null),
     switchMap(() => apiService.get(`generate/`)),
     shareReplay(1),
   )
