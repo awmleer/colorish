@@ -9,7 +9,6 @@ export class SchemaBloc {
   generate$ = new Subject<void>()
   schema$: Observable<Color[]> = this.generate$.pipe(
     switchMap(() => apiService.get(`generate/`)),
-    startWith(null),
     shareReplay(1),
   )
   
