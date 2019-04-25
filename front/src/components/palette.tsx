@@ -27,8 +27,8 @@ export const Palette = memo(suspense(function Palette() {
   return () => {
     return (
       <Container>
-        {schema.map((color) => (
-          <ColorBlock c={color}/>
+        {schema.map((color, index) => (
+          <ColorBlock c={color} key={index}/>
         ))}
       </Container>
     )

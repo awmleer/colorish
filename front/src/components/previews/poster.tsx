@@ -13,6 +13,7 @@ interface ColoredProps {
 const Root = styled.div<ColoredProps>`
   background-color: ${props => rgb(...props.c)};
   padding: 80px 100px;
+  font-family: 'Roboto Slab', serif;
 `
 
 const Content = styled.div`
@@ -31,6 +32,10 @@ const Logo = styled.div<ColoredProps>`
     color: #fff;
     display: inline-block;
     margin-left: 0.3em;
+    line-height: 1;
+    font-size: 161px;
+    position: relative;
+    bottom: -13px;
   }
 `
 

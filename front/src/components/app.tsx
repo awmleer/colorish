@@ -6,6 +6,7 @@ import {useBloc, useStream, withProvider} from 'jorum'
 import {SchemaBloc} from '../blocs/schema.bloc'
 import {Palette} from './palette'
 import {Poster} from './previews/poster'
+import {GlobalStyle} from './global-style'
 
 const Header = styled.div`
   padding: 12px;
@@ -25,6 +26,7 @@ export const App = withProvider({
     const schemaBloc = useBloc(SchemaBloc)
     return (
       <>
+        <GlobalStyle/>
         <NavBar/>
         <section className="section">
           <div className="container">
