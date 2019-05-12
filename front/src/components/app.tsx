@@ -1,12 +1,11 @@
-import {FC, useState} from 'react'
 import * as React from 'react'
 import styled from 'styled-components'
 import {NavBar} from './nav-bar'
-import {useBloc, useStream, withProvider} from 'jorum'
-import {SchemaBloc} from '../blocs/schema.bloc'
+import {SchemaStore} from '../stores/schema.store'
 import {Palette} from './palette'
 import {Poster} from './previews/poster'
 import {GlobalStyle} from './global-style'
+import {useStore, withProvider} from 'reto'
 
 const Header = styled.div`
   padding: 12px;
@@ -21,9 +20,9 @@ const Space = styled.div`
 `
 
 export const App = withProvider({
-  of: SchemaBloc
+  of: SchemaStore
 })(function App() {
-    const schemaBloc = useBloc(SchemaBloc)
+    const schemaStore = useStore(SchemaStore)
     return (
       <>
         <GlobalStyle/>
@@ -31,9 +30,7 @@ export const App = withProvider({
         <section className="section">
           <div className="container">
             <div className="has-text-centered">
-              <button className="button is-success is-large" onClick={() => {
-                schemaBloc.generate$.next()
-              }}>
+              <button className="button is-success is-large" onClick={schemaStore.generate}>
                 <span className="icon is-small">
                   <i className="fas fa-bong"/>
                 </span>

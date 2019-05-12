@@ -1,10 +1,10 @@
-import {suspense, useBloc, useStream} from 'jorum'
 import styled from 'styled-components'
 import * as React from 'react'
 import {Color} from '../classes/color'
-import {SchemaBloc} from '../blocs/schema.bloc'
+import {SchemaStore} from '../stores/schema.store'
 import {rgb} from 'polished'
 import {memo} from 'react'
+import {useStore} from 'reto'
 
 const Container = styled.div`
   display: flex;
@@ -20,17 +20,15 @@ const ColorBlock = styled.div<{
   background-color: ${props => rgb(...props.c)};
 `
 
-export const Palette = memo(suspense(function Palette() {
-  const schemaBloc = useBloc(SchemaBloc)
-  const schema = useStream(schemaBloc.schema$)
+export const Palette = memo(function Palette() {
+  const schemaStore = useStore(SchemaStore)
+  const {schema} = schemaStore.state
   
-  return () => {
-    return (
-      <Container>
-        {schema.map((color, index) => (
-          <ColorBlock c={color} key={index}/>
-        ))}
-      </Container>
-    )
-  }
-}))
+  return schema.length > 0 && (
+    <Container>
+      {schema.map((color, index) => (
+        <ColorBlock c={color} key={index}/>
+      ))}
+    </Container>
+  )
+})

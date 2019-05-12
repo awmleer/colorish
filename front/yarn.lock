@@ -2824,6 +2824,11 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
+immer@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npm.taobao.org/immer/download/immer-3.1.1.tgz#eddd2c28403f494df604992c554eade8d9e5c2bb"
+  integrity sha1-7d0sKEA/SU32BJksVU6t6Nnlwrs=
+
 import-local@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/import-local/download/import-local-2.0.0.tgz#55070be38a5993cf18ef6db7e961f5bee5c5a09d"
@@ -3114,13 +3119,6 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/isobject/download/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
-
-jorum@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/jorum/download/jorum-1.2.1.tgz#e1d47cd22eff266cec8eb19ee5a011a944e98f83"
-  integrity sha1-4dR80i7/JmzsjrGe5aARqUTpj4M=
-  dependencies:
-    reflect-metadata "^0.1.12"
 
 js-levenshtein@^1.1.3:
   version "1.1.6"
@@ -4497,6 +4495,14 @@ ret@~0.1.10:
   version "0.1.15"
   resolved "http://registry.npm.taobao.org/ret/download/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha1-uKSCXVvbH8P29Twrwz+BOIaBx7w=
+
+reto@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/reto/download/reto-0.1.0.tgz#4c1466d2f8898c14f623388757002f6f1e7cc535"
+  integrity sha1-TBRm0viJjBT2IziHVwAvbx58xTU=
+  dependencies:
+    immer "^3.1.1"
+    reflect-metadata "^0.1.12"
 
 rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3:
   version "2.6.3"

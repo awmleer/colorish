@@ -1,10 +1,10 @@
 import {memo} from 'react'
-import {suspense, useBloc, useStream} from 'jorum'
-import {SchemaBloc} from '../../blocs/schema.bloc'
+import {SchemaStore} from '../../stores/schema.store'
 import styled from 'styled-components'
 import * as React from 'react'
 import {Color} from '../../classes/color'
 import {rgb, setLightness, setSaturation} from 'polished'
+import {useStore} from 'reto'
 
 interface ColoredProps {
   c: Color
@@ -76,36 +76,35 @@ const SecondLine = styled.div<ColoredProps>`
   }
 `
 
-export const Poster = memo(suspense(function Poster() {
-  const schemaBloc = useBloc(SchemaBloc)
-  const schema = useStream(schemaBloc.schema$)
+export const Poster = memo(function Poster() {
+  const schemaStore = useStore(SchemaStore)
   
-  return () => {
-    return (
-      <Root c={schema[0]}>
-        <Content>
-          <Logo c={schema[4]}>
+  const {schema} = schemaStore.state
+  
+  return schema.length > 0 && (
+    <Root c={schema[0]}>
+      <Content>
+        <Logo c={schema[4]}>
+          <i className="fas fa-cat"/>
+          <span>Cater</span>
+        </Logo>
+        <SecondLine c={schema[0]}>
+          <Feature c={schema[3]}>
+            <i className="fas fa-bolt"/>
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+          </Feature>
+          <Operator>+</Operator>
+          <Feature c={schema[3]}>
+            <i className="fas fa-eye"/>
+            <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
+          </Feature>
+          <Operator>=</Operator>
+          <Feature c={schema[3]}>
             <i className="fas fa-cat"/>
-            <span>Cater</span>
-          </Logo>
-          <SecondLine c={schema[0]}>
-            <Feature c={schema[3]}>
-              <i className="fas fa-bolt"/>
-              <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
-            </Feature>
-            <Operator>+</Operator>
-            <Feature c={schema[3]}>
-              <i className="fas fa-eye"/>
-              <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
-            </Feature>
-            <Operator>=</Operator>
-            <Feature c={schema[3]}>
-              <i className="fas fa-cat"/>
-              <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
-            </Feature>
-          </SecondLine>
-        </Content>
-      </Root>
-    )
-  }
-}))
+            <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
+          </Feature>
+        </SecondLine>
+      </Content>
+    </Root>
+  )
+})
