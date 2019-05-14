@@ -1,8 +1,6 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 
-# Create your views here.
-from sample_generator import sample
+from . import generator
 
 def generate(request):
-    return JsonResponse(sample(), safe=False)
+    return JsonResponse(generator.generate(), safe=False)
