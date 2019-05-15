@@ -4,11 +4,11 @@ import torch
 from networks import Discriminator, Generator
 from utils import tensor_to_color_list
 
-discriminator = Discriminator()
-discriminator.load_state_dict(torch.load('data/discriminator-state-dict'))
+# discriminator = Discriminator()
+# discriminator.load_state_dict(torch.load('data/discriminator'))
 
 generator = Generator()
-generator.load_state_dict(torch.load('data/generator-state-dict'))
+generator.load_state_dict(torch.load('data/generator'))
 
 def sample():
     generated = generator(torch.rand(16))

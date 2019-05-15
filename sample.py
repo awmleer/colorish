@@ -4,7 +4,7 @@ import random
 
 import torch
 
-from networks import RNN, Discriminator
+from networks import Discriminator
 from utils import tensorToRGB, color_list_to_tensor
 
 discriminator = Discriminator()

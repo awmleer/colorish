@@ -4496,10 +4496,10 @@ ret@~0.1.10:
   resolved "http://registry.npm.taobao.org/ret/download/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha1-uKSCXVvbH8P29Twrwz+BOIaBx7w=
 
-reto@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npm.taobao.org/reto/download/reto-0.1.0.tgz#4c1466d2f8898c14f623388757002f6f1e7cc535"
-  integrity sha1-TBRm0viJjBT2IziHVwAvbx58xTU=
+reto@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npm.taobao.org/reto/download/reto-0.1.1.tgz#3870fa37b46bdf3038565903497cb46b453b069a"
+  integrity sha1-OHD6N7Rr3zA4VlkDSXy0a0U7Bpo=
   dependencies:
     immer "^3.1.1"
     reflect-metadata "^0.1.12"

@@ -21,7 +21,7 @@
     "react": "16.8.x",
     "react-dom": "16.8.x",
     "react-router-dom": "^4.3.1",
-    "reto": "^0.1.0",
+    "reto": "0.1.1",
     "rxjs": "^6.3.3",
     "styled-components": "^4.1.2"
   },

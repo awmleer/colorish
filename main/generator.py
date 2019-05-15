@@ -16,6 +16,7 @@ for dirname in os.listdir(state_dict_path):
     generator = Generator()
     generator.load_state_dict(torch.load(state_dict_path + '/' + dirname + '/generator'))
     networks.append({
+        'id': dirname,
         'discriminator': discriminator,
         'generator': generator,
     })
@@ -25,4 +26,7 @@ def generate():
     network = random.choice(networks)
     generated = network['generator'](torch.rand(16))
     colors = tensor_to_color_list(generated)
-    return colors
+    return {
+        'network': network['id'],
+        'colors': colors,
+    }

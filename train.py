@@ -14,7 +14,7 @@ generator = Generator()
 def weights_init(m):
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.08, 0.6)
+        nn.init.normal_(m.weight.data, 0.048, 0.5)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
@@ -39,7 +39,7 @@ def get_real_color_tensor():
 
 
 
-discriminator_learning_rate = 0.01
+discriminator_learning_rate = 0.008
 isFake = True
 def train_discriminator():
     discriminator.zero_grad()
@@ -61,7 +61,7 @@ def train_discriminator():
     return output, loss.item()
 
 
-generator_learning_rate = 0.02
+generator_learning_rate = 0.015
 def train_generator():
     generator.zero_grad()
     generated = generator(torch.rand(16))
@@ -72,13 +72,14 @@ def train_generator():
         p.data.add_(-generator_learning_rate, p.grad.data)
     return output, loss.item()
 
-
+loss_threshold = 0.1
+loss_threshold_count = 0
 
 def main():
     training_generator = False
     total_loss = 0
-    total_round = 100
-    batch_size = 500
+    total_round = 150
+    batch_size = 800
     for i in range(2 * total_round):
         if i%2 == 0:
             print('%d/%d' % (i//2 + 1, total_round))
@@ -94,11 +95,17 @@ def main():
             if loss is None:
                 return
             total_loss += loss
-
-        print('%.5f' % (total_loss / batch_size), end=' ')
+        average_loss = total_loss / batch_size
+        print('%.5f' % average_loss, end=' ')
         if i%2 != 0:
             print('')
-
+        global loss_threshold_count
+        if i >= 80 and average_loss < loss_threshold:
+            loss_threshold_count += 1
+        else:
+            loss_threshold_count = 0
+        if loss_threshold_count >= 4:
+            break
         training_generator = not training_generator
         total_loss = 0
 
@@ -106,6 +113,6 @@ def main():
 
 main()
 
-torch.save(discriminator.state_dict(), 'data/discriminator-state-dict')
-torch.save(generator.state_dict(), 'data/generator-state-dict')
+torch.save(discriminator.state_dict(), 'data/discriminator')
+torch.save(generator.state_dict(), 'data/generator')
 print('training finished')

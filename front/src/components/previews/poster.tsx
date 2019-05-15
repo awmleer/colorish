@@ -80,26 +80,29 @@ export const Poster = memo(function Poster() {
   const schemaStore = useStore(SchemaStore)
   
   const {schema} = schemaStore.state
+  if (schema === null) return null
   
-  return schema.length > 0 && (
-    <Root c={schema[0]}>
+  const {colors} = schema
+  
+  return colors.length > 0 && (
+    <Root c={colors[0]}>
       <Content>
-        <Logo c={schema[4]}>
+        <Logo c={colors[4]}>
           <i className="fas fa-cat"/>
           <span>Cater</span>
         </Logo>
-        <SecondLine c={schema[0]}>
-          <Feature c={schema[3]}>
+        <SecondLine c={colors[0]}>
+          <Feature c={colors[3]}>
             <i className="fas fa-bolt"/>
             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
           </Feature>
           <Operator>+</Operator>
-          <Feature c={schema[3]}>
+          <Feature c={colors[3]}>
             <i className="fas fa-eye"/>
             <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
           </Feature>
           <Operator>=</Operator>
-          <Feature c={schema[3]}>
+          <Feature c={colors[3]}>
             <i className="fas fa-cat"/>
             <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
           </Feature>

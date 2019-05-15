@@ -23,10 +23,14 @@ const ColorBlock = styled.div<{
 export const Palette = memo(function Palette() {
   const schemaStore = useStore(SchemaStore)
   const {schema} = schemaStore.state
+  console.log(schema)
+  if (schema === null) return null
   
-  return schema.length > 0 && (
+  const {colors} = schema
+  
+  return colors.length > 0 && (
     <Container>
-      {schema.map((color, index) => (
+      {colors.map((color, index) => (
         <ColorBlock c={color} key={index}/>
       ))}
     </Container>
