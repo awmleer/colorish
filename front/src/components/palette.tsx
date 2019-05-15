@@ -17,13 +17,12 @@ const ColorBlock = styled.div<{
 }>`
   flex: auto;
   height: 100%;
-  background-color: ${props => rgb(...props.c)};
+  background-color: ${props => props.c.str};
 `
 
 export const Palette = memo(function Palette() {
   const schemaStore = useStore(SchemaStore)
   const {schema} = schemaStore.state
-  console.log(schema)
   if (schema === null) return null
   
   const {colors} = schema

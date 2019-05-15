@@ -11,7 +11,7 @@ interface ColoredProps {
 }
 
 const Root = styled.div<ColoredProps>`
-  background-color: ${props => rgb(...props.c)};
+  background-color: ${props => props.c.str};
   padding: 80px 100px;
   font-family: 'Roboto Slab', serif;
 `
@@ -26,7 +26,7 @@ const Logo = styled.div<ColoredProps>`
   margin-bottom: 1em;
   text-align: center;
   > i {
-    color: ${props => rgb(...props.c)};
+    color: ${props => props.c.str};
   }
   > span {
     color: #fff;
@@ -46,7 +46,7 @@ const Feature = styled.div<ColoredProps>`
     display: block;
   }
   > i {
-    color: ${props => rgb(...props.c)};
+    color: ${props => props.c.str};
     font-size: 56px;
   }
   > span {
@@ -71,8 +71,8 @@ const SecondLine = styled.div<ColoredProps>`
     flex: auto;
   }
   span {
-    color: ${props => setLightness(0.8, setSaturation(0.3, rgb(...props.c)))};
-    //color: ${props => rgb(...props.c)};
+    color: ${props => setLightness(0.8, setSaturation(0.3, props.c.str))};
+    //color: ${props => props.c.str};
   }
 `
 
@@ -81,6 +81,9 @@ export const Poster = memo(function Poster() {
   const {schema} = schemaStore.state
   if (schema === null) return null
   const {colors} = schema
+  
+  let background
+  
   
   return colors.length > 0 && (
     <Root c={colors[0]}>
