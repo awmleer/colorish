@@ -5,6 +5,7 @@ import * as React from 'react'
 import {Color} from '../../classes/color'
 import {rgb, setLightness, setSaturation} from 'polished'
 import {useStore} from 'reto'
+import _ from 'lodash';
 
 interface ColoredProps {
   c: Color
@@ -82,28 +83,41 @@ export const Poster = memo(function Poster() {
   if (schema === null) return null
   const {colors} = schema
   
-  let background
+  let background = colors[0]
+  function getColorRank(c: Color) {
+    return c.hsl.lightness + c.hsl.saturation * 0.5
+  }
+  for (const c of colors) {
+    if (getColorRank(c) < getColorRank(background)) {
+      background = c
+    }
+  }
+  const others = []
+  for (const c of colors) {
+    if (c !== background) others.push(c)
+  }
   
+  let [primary, secondary] = _.sampleSize(others, 2)
   
   return colors.length > 0 && (
-    <Root c={colors[0]}>
+    <Root c={background}>
       <Content>
-        <Logo c={colors[4]}>
+        <Logo c={primary}>
           <i className="fas fa-cat"/>
           <span>Cater</span>
         </Logo>
-        <SecondLine c={colors[0]}>
-          <Feature c={colors[3]}>
+        <SecondLine c={background}>
+          <Feature c={secondary}>
             <i className="fas fa-bolt"/>
             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
           </Feature>
           <Operator>+</Operator>
-          <Feature c={colors[3]}>
+          <Feature c={secondary}>
             <i className="fas fa-eye"/>
             <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
           </Feature>
           <Operator>=</Operator>
-          <Feature c={colors[3]}>
+          <Feature c={secondary}>
             <i className="fas fa-cat"/>
             <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
           </Feature>

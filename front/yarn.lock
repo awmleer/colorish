@@ -705,6 +705,11 @@
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
   integrity sha1-DmcOolTVWSQbbus4lPh1SZHnMiA=
 
+"@types/lodash@^4.14.129":
+  version "4.14.129"
+  resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.129.tgz#9aaca391db126802482655c48dd79a814488202f"
+  integrity sha1-mqyjkdsSaAJIJlXEjdeagUSIIC8=
+
 "@types/prop-types@*":
   version "15.7.0"
   resolved "http://registry.npm.taobao.org/@types/prop-types/download/@types/prop-types-15.7.0.tgz#4c48fed958d6dcf9487195a0ef6456d5f6e0163a"
