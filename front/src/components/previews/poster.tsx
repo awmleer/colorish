@@ -1,4 +1,4 @@
-import {memo} from 'react'
+import {memo, useMemo} from 'react'
 import {SchemaStore} from '../../stores/schema.store'
 import styled from 'styled-components'
 import * as React from 'react'
@@ -78,10 +78,8 @@ const SecondLine = styled.div<ColoredProps>`
 
 export const Poster = memo(function Poster() {
   const schemaStore = useStore(SchemaStore)
-  
   const {schema} = schemaStore.state
   if (schema === null) return null
-  
   const {colors} = schema
   
   return colors.length > 0 && (

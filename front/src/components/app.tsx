@@ -7,43 +7,45 @@ import {Poster} from './previews/poster'
 import {GlobalStyle} from './global-style'
 import {useStore, withProvider} from 'reto'
 
-const Header = styled.div`
-  padding: 12px;
-`
-
-const PaletteContainer = styled.div`
-  margin: 30px 0;
-`
-
 const Space = styled.div`
   height: 30px;
+`
+
+const Info = styled.div`
+  text-align: center;
+  margin-top: 12px;
 `
 
 export const App = withProvider({
   of: SchemaStore
 })(function App() {
-    const schemaStore = useStore(SchemaStore)
-    return (
-      <>
-        <GlobalStyle/>
-        <NavBar/>
-        <section className="section">
-          <div className="container">
-            <div className="has-text-centered">
-              <button className="button is-success is-large" onClick={schemaStore.generate}>
+  const schemaStore = useStore(SchemaStore)
+  const {schema} = schemaStore.state
+  return (
+    <>
+      <GlobalStyle/>
+      <NavBar/>
+      <section className="section">
+        <div className="container">
+          <div className="has-text-centered">
+            <button className="button is-success is-large" onClick={schemaStore.generate}>
                 <span className="icon is-small">
                   <i className="fas fa-bong"/>
                 </span>
-                <span>Generate</span>
-              </button>
-            </div>
-            <Space/>
-            <Palette/>
-            <Space/>
-            <Poster/>
+              <span>Generate</span>
+            </button>
           </div>
-        </section>
-      </>
-    )
-  }
-)
+          {schema && (
+            <Info>
+              Generated using model {schema.network}.
+            </Info>
+          )}
+          <Space/>
+          <Palette/>
+          <Space/>
+          <Poster/>
+        </div>
+      </section>
+    </>
+  )
+})
