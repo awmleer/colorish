@@ -21,6 +21,11 @@ export const App = withProvider({
 })(function App() {
   const schemaStore = useStore(SchemaStore)
   const {schema} = schemaStore.state
+  
+  function generate() {
+    schemaStore.generate('8')
+  }
+  
   return (
     <>
       <GlobalStyle/>
@@ -28,7 +33,7 @@ export const App = withProvider({
       <section className="section">
         <div className="container">
           <div className="has-text-centered">
-            <button className="button is-success is-large" onClick={schemaStore.generate}>
+            <button className="button is-success is-large" onClick={generate}>
                 <span className="icon is-small">
                   <i className="fas fa-bong"/>
                 </span>

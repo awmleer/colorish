@@ -72,14 +72,13 @@ def train_generator():
         p.data.add_(-generator_learning_rate, p.grad.data)
     return output, loss.item()
 
-loss_threshold = 0.1
-loss_threshold_count = 0
 
 def main():
     training_generator = False
     total_loss = 0
     total_round = 150
     batch_size = 800
+    loss_threshold_count = 0
     for i in range(2 * total_round):
         if i%2 == 0:
             print('%d/%d' % (i//2 + 1, total_round))
@@ -97,15 +96,15 @@ def main():
             total_loss += loss
         average_loss = total_loss / batch_size
         print('%.5f' % average_loss, end=' ')
-        if i%2 != 0:
-            print('')
-        global loss_threshold_count
-        if i >= 80 and average_loss < loss_threshold:
+        if (i >= 240 and average_loss < 0.12) or (i >= 160 and average_loss < 0.1) or (i >= 120 and average_loss < 0.09) or (i >= 80 and average_loss < 0.08):
             loss_threshold_count += 1
         else:
             loss_threshold_count = 0
-        if loss_threshold_count >= 4:
+        if loss_threshold_count >= 6:
+            print('')
             break
+        if i%2 != 0:
+            print('')
         training_generator = not training_generator
         total_loss = 0
 
