@@ -37,7 +37,7 @@ export class SchemaStore extends Store<State> {
         })
       }
       draft.schema = {
-        network: data.network,
+        ...data,
         colors,
       }
     })

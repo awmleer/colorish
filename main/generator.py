@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 import torch
 
@@ -33,9 +34,12 @@ def generate(network_id=None):
         network = random.choice(networks)
     else:
         network = network_dict[network_id]
+    start = time.time()
     generated = network['generator'](torch.rand(16))
     colors = tensor_to_color_list(generated)
+    end = time.time()
     return {
+        'time': (end - start) * 1000,
         'network': network['id'],
         'colors': colors,
     }
