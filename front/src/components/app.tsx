@@ -6,6 +6,7 @@ import {Palette} from './palette'
 import {Poster} from './previews/poster'
 import {GlobalStyle} from './global-style'
 import {useStore, withProvider} from 'reto'
+import {ChangeEvent} from 'react'
 
 const Space = styled.div`
   height: 30px;
@@ -20,10 +21,16 @@ export const App = withProvider({
   of: SchemaStore
 })(function App() {
   const schemaStore = useStore(SchemaStore)
-  const {schema} = schemaStore.state
+  const {schema, config} = schemaStore.state
   
   function generate() {
-    schemaStore.generate('8')
+    schemaStore.generate()
+  }
+  
+  function changeNetworkId(event: ChangeEvent<HTMLInputElement>) {
+    schemaStore.mutate(state => {
+      state.config.networkId = event.target.value
+    })
   }
   
   return (
@@ -39,6 +46,9 @@ export const App = withProvider({
                 </span>
               <span>Generate</span>
             </button>
+          </div>
+          <div className="has-text-centered">
+            <input className="input" onChange={changeNetworkId} value={config.networkId}/>
           </div>
           {schema && (
             <Info>

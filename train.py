@@ -7,7 +7,6 @@ from networks import Discriminator, Generator
 
 criterion = nn.MSELoss()
 
-
 discriminator = Discriminator()
 generator = Generator()
 
@@ -19,15 +18,13 @@ def weights_init(m):
 generator.apply(weights_init)
 discriminator.apply(weights_init)
 
-
-
 colorFile = open('data/color.txt')
+
 def get_real_color_tensor():
     line = colorFile.readline()
     if line == '':
         colorFile.seek(0)
-        line = colorFile.readline()
-        # return None
+        line = colorFile.readline()  # return None
     colors = json.loads(line)
     data = []
     for color in colors:
@@ -36,11 +33,9 @@ def get_real_color_tensor():
             data.append(hsv[i])
     return torch.tensor(data)
 
-
-
-
-discriminator_learning_rate = 0.008
+discriminator_learning_rate = 0.01
 isFake = True
+
 def train_discriminator():
     discriminator.zero_grad()
     global isFake
@@ -60,8 +55,8 @@ def train_discriminator():
 
     return output, loss.item()
 
-
 generator_learning_rate = 0.015
+
 def train_generator():
     generator.zero_grad()
     generated = generator(torch.rand(16))
@@ -72,16 +67,15 @@ def train_generator():
         p.data.add_(-generator_learning_rate, p.grad.data)
     return output, loss.item()
 
-
-def main():
+def do_training():
     training_generator = False
     total_loss = 0
     total_round = 150
     batch_size = 800
     loss_threshold_count = 0
     for i in range(2 * total_round):
-        if i%2 == 0:
-            print('%d/%d' % (i//2 + 1, total_round))
+        if i % 2 == 0:
+            print('%d/%d' % (i // 2 + 1, total_round))
         if training_generator:
             print('G', end=' ')
         else:
@@ -103,15 +97,18 @@ def main():
         if loss_threshold_count >= 6:
             print('')
             break
-        if i%2 != 0:
+        if i % 2 != 0:
             print('')
         training_generator = not training_generator
         total_loss = 0
 
 
+def train():
+    do_training()
+    torch.save(discriminator.state_dict(), 'data/discriminator')
+    torch.save(generator.state_dict(), 'data/generator')
+    print('training finished')
 
-main()
+if __name__ == '__main__':
+    train()
 
-torch.save(discriminator.state_dict(), 'data/discriminator')
-torch.save(generator.state_dict(), 'data/generator')
-print('training finished')

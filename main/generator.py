@@ -29,7 +29,7 @@ def init():
 init()
 
 def generate(network_id=None):
-    if network_id is None:
+    if network_id == '':
         network = random.choice(networks)
     else:
         network = network_dict[network_id]

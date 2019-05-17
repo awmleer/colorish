@@ -4,13 +4,19 @@ import {Schema} from '../classes/schema'
 import {parseToHsl, parseToRgb, rgb} from 'polished'
 
 interface State {
-  schema: Schema
+  schema: Schema,
+  config: {
+    networkId: string
+  }
 }
 
 @store
 export class SchemaStore extends Store<State> {
-  state = {
-    schema: null as Schema
+  state: State = {
+    schema: null,
+    config: {
+      networkId: ''
+    }
   }
   
   constructor() {
@@ -18,10 +24,8 @@ export class SchemaStore extends Store<State> {
     this.generate()
   }
   
-  generate = async (networkId: string = null) => {
-    const data = await apiService.post(`generate/`, null, {
-      networkId
-    })
+  generate = async () => {
+    const data = await apiService.post(`generate/`, null, this.state.config)
     this.mutate(draft => {
       const colors = []
       for (const c of data.colors) {
