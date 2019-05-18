@@ -4,6 +4,7 @@ import {Color} from '../classes/color'
 import {SchemaStore} from '../stores/schema.store'
 import {memo} from 'react'
 import {useStore} from 'reto'
+import {readableColor} from 'polished'
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Container = styled.div`
 `
 
 
-const ColorText = styled.div`
+const Info = styled.div`
 
 `
 
@@ -22,11 +23,19 @@ const ColorBlock = styled.div<{
   flex: auto;
   height: 100%;
   background-color: ${props => props.c.str};
-  > ${ColorText} {
+  position: relative;
+  > ${Info} {
     opacity: 0;
     transition: opacity ease 0.2s;
+    &, & > a {
+      color: ${props => props.c.hsl.lightness > 0.6 ? '#3b3b3b' : '#e8e8e8'};
+    }
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 16px;
   }
-  :hover > ${ColorText} {
+  :hover > ${Info} {
     opacity: 1;
   }
 `
@@ -43,7 +52,12 @@ export const Palette = memo(function Palette() {
     <Container>
       {colors.map((color, index) => (
         <ColorBlock c={color} key={index}>
-          <ColorText></ColorText>
+          <Info>
+            {color.str} <a><i className="fas fa-clone"/></a><br/>
+            hue: {color.hsl.hue.toFixed(0)}<br/>
+            saturation: {color.hsl.saturation.toFixed(2)}<br/>
+            lightness: {color.hsl.lightness.toFixed(2)}<br/>
+          </Info>
         </ColorBlock>
       ))}
     </Container>
