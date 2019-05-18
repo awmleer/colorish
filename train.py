@@ -1,5 +1,7 @@
 import colorsys
 import json
+import os
+import random
 
 import torch
 import torch.nn as nn
@@ -18,13 +20,19 @@ def weights_init(m):
 generator.apply(weights_init)
 discriminator.apply(weights_init)
 
-colorFile = open('data/color.txt')
+color_file = open('data/kuler.txt')
+color_file.seek(0, os.SEEK_END)
+color_file_size = color_file.tell()
+
+def random_color_file_seek():
+    color_file.seek(random.randint(0, color_file_size))
+    color_file.readline()
 
 def get_real_color_tensor():
-    line = colorFile.readline()
+    line = color_file.readline()
     if line == '':
-        colorFile.seek(0)
-        line = colorFile.readline()  # return None
+        color_file.seek(0)
+        line = color_file.readline()  # return None
     colors = json.loads(line)
     data = []
     for color in colors:
@@ -37,6 +45,7 @@ discriminator_learning_rate = 0.01
 isFake = True
 
 def train_discriminator():
+    random_color_file_seek()
     discriminator.zero_grad()
     global isFake
     isFake = not isFake
@@ -90,7 +99,7 @@ def do_training():
             total_loss += loss
         average_loss = total_loss / batch_size
         print('%.5f' % average_loss, end=' ')
-        if (i >= 240 and average_loss < 0.12) or (i >= 160 and average_loss < 0.1) or (i >= 120 and average_loss < 0.09) or (i >= 80 and average_loss < 0.08):
+        if (i >= 240 and average_loss < 0.1) or (i >= 160 and average_loss < 0.09) or (i >= 120 and average_loss < 0.08) or (i >= 80 and average_loss < 0.07):
             loss_threshold_count += 1
         else:
             loss_threshold_count = 0
@@ -105,8 +114,8 @@ def do_training():
 
 def train():
     do_training()
-    torch.save(discriminator.state_dict(), 'data/discriminator')
-    torch.save(generator.state_dict(), 'data/generator')
+    torch.save(discriminator.state_dict(), 'temp/discriminator')
+    torch.save(generator.state_dict(), 'temp/generator')
     print('training finished')
 
 if __name__ == '__main__':

@@ -11,5 +11,5 @@ for network_id in sys.argv[1:]:
     train.train()
     target_dir = 'state-dict/' + network_id
     os.mkdir(target_dir)
-    shutil.copyfile('data/discriminator', target_dir + '/discriminator')
-    shutil.copyfile('data/generator', target_dir + '/generator')
+    shutil.copyfile('temp/discriminator', target_dir + '/discriminator')
+    shutil.copyfile('temp/generator', target_dir + '/generator')
