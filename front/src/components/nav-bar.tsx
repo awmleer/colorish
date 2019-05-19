@@ -15,15 +15,15 @@ const Logo = styled.h1.attrs({
 
 export const NavBar = memo(function NavBar(){
   return (
-    <Root className="navbar" role="navigation">
-      <div className="container">
-        <div className="navbar-brand">
+    <Root className='navbar' role='navigation'>
+      <div className='container'>
+        <div className='navbar-brand'>
           <Logo>Colorish</Logo>
         </div>
         
-        <div className="navbar-menu">
-          <div className="navbar-start">
-            <a className="navbar-item">
+        <div className='navbar-menu'>
+          <div className='navbar-start'>
+            <a className='navbar-item'>
               Test
             </a>
           </div>

@@ -102,22 +102,22 @@ export const Poster = memo(function Poster() {
     <Root c={background}>
       <Content>
         <Logo c={primary}>
-          <i className="fas fa-cat"/>
+          <i className='fas fa-cat'/>
           <span>Cater</span>
         </Logo>
         <SecondLine c={background}>
           <Feature c={secondary}>
-            <i className="fas fa-bolt"/>
+            <i className='fas fa-bolt'/>
             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
           </Feature>
           <Operator>+</Operator>
           <Feature c={secondary}>
-            <i className="fas fa-eye"/>
+            <i className='fas fa-eye'/>
             <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
           </Feature>
           <Operator>=</Operator>
           <Feature c={secondary}>
-            <i className="fas fa-cat"/>
+            <i className='fas fa-cat'/>
             <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
           </Feature>
         </SecondLine>
