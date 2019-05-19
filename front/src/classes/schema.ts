@@ -2,6 +2,8 @@ import {Color} from './color'
 
 export class Schema {
   time: number
-  network: string
+  networkId: string
   colors: Color[]
+  createdAt: string
+  viewCount: number
 }

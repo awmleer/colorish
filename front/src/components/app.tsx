@@ -52,7 +52,7 @@ export const App = withProvider({
           </div>
           {schema && (
             <Info>
-              Generated using model {schema.network} in {schema.time.toFixed(2)}ms.
+              Generated using model {schema.networkId} in {schema.time.toFixed(2)}ms.
             </Info>
           )}
           <Space/>

@@ -40,6 +40,6 @@ def generate(network_id=None):
     end = time.time()
     return {
         'time': (end - start) * 1000,
-        'network': network['id'],
+        'network_id': network['id'],
         'colors': colors,
     }
