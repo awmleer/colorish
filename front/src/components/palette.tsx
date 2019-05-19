@@ -26,7 +26,7 @@ const ColorBlock = styled.div<{
     opacity: 0;
     transition: opacity ease 0.2s;
     &, & > a {
-      color: ${props => props.c.hsl.lightness > 0.6 ? '#3b3b3b' : '#e8e8e8'};
+      color: ${props => props.c.hsl.lightness > 0.6 ? '#3b3b3b' : '#f2f2f2'};
     }
     width: 100%;
     position: absolute;

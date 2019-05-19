@@ -7,6 +7,7 @@ import {Poster} from './previews/poster'
 import {GlobalStyle} from './global-style'
 import {useStore, withProvider} from 'reto'
 import {ChangeEvent} from 'react'
+import {Logo} from './logo'
 
 const Space = styled.div`
   height: 30px;
@@ -70,6 +71,8 @@ export const App = withProvider({
           <Palette/>
           <Space/>
           <Poster/>
+          <Space/>
+          <Logo/>
         </div>
       </section>
     </>

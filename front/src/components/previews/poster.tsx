@@ -72,8 +72,7 @@ const SecondLine = styled.div<ColoredProps>`
     flex: auto;
   }
   span {
-    color: ${props => setLightness(0.8, setSaturation(0.3, props.c.str))};
-    //color: ${props => props.c.str};
+    color: ${props => setLightness(props.c.hsl.lightness > 0.6 ? 0.3 : 0.8, setSaturation(props.c.hsl.saturation > 0.5 ? 0.3 : props.c.hsl.saturation/2, props.c.str))};
   }
 `
 
