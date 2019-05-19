@@ -8,11 +8,7 @@ module.exports = () => {
     devtool: 'inline-source-map',
     plugins: [],
     devServer: {
-      historyApiFallback: {
-        rewrites: [
-          { from: /^\//, to: 'index.html' },
-        ],
-      },
+      historyApiFallback: true,
       contentBase: path.join(__dirname, 'dist'),
       hot: false,
       port: 8088,

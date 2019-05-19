@@ -1,11 +1,13 @@
 import {ChangeEvent, memo} from 'react'
-import {SchemaStore} from '../stores/schema.store'
-import {useStore, withProvider} from 'reto'
-import {Logo} from './logo'
+import {GenerateStore} from '../stores/generate.store'
+import {Provider, useStore, withProvider} from 'reto'
+import {Logo} from './previews/logo'
 import {Palette} from './palette'
 import {Poster} from './previews/poster'
 import React from 'react';
 import styled from 'styled-components'
+import {withRouter} from 'react-router'
+import {SchemaStore} from '../stores/schema.store'
 
 const Space = styled.div`
   height: 30px;
@@ -17,21 +19,21 @@ const Info = styled.div`
 `
 
 export const GeneratePage = withProvider({
-  of: SchemaStore
-})(memo(function GeneratePage(props) {
-  const schemaStore = useStore(SchemaStore)
-  const {schema, config} = schemaStore.state
+  of: GenerateStore
+})(withRouter(memo(function GeneratePage(props) {
+  const generateStore = useStore(GenerateStore)
+  const {schema, config} = generateStore.state
   
   function generate() {
-    schemaStore.generate()
+    generateStore.generate()
   }
   
   function generateASimilarOne() {
-    schemaStore.generate(schema.networkId)
+    generateStore.generate(schema.networkId)
   }
   
   function changeNetworkId(event: ChangeEvent<HTMLInputElement>) {
-    schemaStore.mutate(state => {
+    generateStore.mutate(state => {
       state.config.networkId = event.target.value
     })
   }
@@ -58,17 +60,19 @@ export const GeneratePage = withProvider({
         {/*  <input className='input' onChange={changeNetworkId} value={config.networkId}/>*/}
         {/*</div>*/}
         {schema && (
-          <Info>
-            Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms.
-          </Info>
+          <Provider of={SchemaStore} args={[schema]} key={schema.id}>
+            <Info>
+              Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms.
+            </Info>
+            <Space/>
+            <Palette/>
+            <Space/>
+            <Poster/>
+            <Space/>
+            <Logo/>
+          </Provider>
         )}
-        <Space/>
-        <Palette/>
-        <Space/>
-        <Poster/>
-        <Space/>
-        <Logo/>
       </div>
     </section>
   )
-}))
+})))

@@ -67,12 +67,9 @@ export const ColorCard = memo<{color: Color}>(function Card(props){
 
 export const Palette = memo(function Palette() {
   const schemaStore = useStore(SchemaStore)
-  const {schema} = schemaStore.state
-  if (schema === null) return null
+  const {colors} = schemaStore.state
   
-  const {colors} = schema
-  
-  return colors.length > 0 && (
+  return (
     <Container>
       {colors.map((color, index) => (
         <ColorCard color={color} key={color.str}/>

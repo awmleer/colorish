@@ -78,9 +78,7 @@ const SecondLine = styled.div<ColoredProps>`
 
 export const Poster = memo(function Poster() {
   const schemaStore = useStore(SchemaStore)
-  const {schema} = schemaStore.state
-  if (schema === null) return null
-  const {colors} = schema
+  const {colors} = schemaStore.state
   
   let background = colors[0]
   function getColorRank(c: Color) {
@@ -98,7 +96,7 @@ export const Poster = memo(function Poster() {
   
   let [primary, secondary] = _.sampleSize(others, 2)
   
-  return colors.length > 0 && (
+  return (
     <Root c={background}>
       <Content>
         <Logo c={primary}>

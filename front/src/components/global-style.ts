@@ -14,4 +14,7 @@ export const GlobalStyle = createGlobalStyle`
       opacity: 0.7;
     }
   }
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
+  }
 `

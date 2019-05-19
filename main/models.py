@@ -15,6 +15,7 @@ class Schema(models.Model):
 
     def as_dict(self):
         return {
+            'id': self.id,
             'colors': self.get_colors(),
             'viewCount': self.view_count,
             'time': self.time,

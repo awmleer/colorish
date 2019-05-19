@@ -1,9 +1,9 @@
 import {memo} from 'react'
 import styled from 'styled-components'
 import * as React from 'react'
-import {Color} from '../classes/color'
+import {Color} from '../../classes/color'
 import {useStore} from 'reto'
-import {SchemaStore} from '../stores/schema.store'
+import {SchemaStore} from '../../stores/schema.store'
 import {lighten} from 'polished'
 
 const Container = styled.div<{c: Color}>`
@@ -59,9 +59,7 @@ const Part5 = styled(Part)<{c: Color}>`
 
 export const Logo = memo(function Logo(){
   const schemaStore = useStore(SchemaStore)
-  const {schema} = schemaStore.state
-  if (schema === null) return null
-  const {colors} = schema
+  const {colors} = schemaStore.state
   
   let background = colors[0]
   function getColorRank(c: Color) {
