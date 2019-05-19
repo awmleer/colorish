@@ -13,12 +13,12 @@ const PaletteContainer = styled.div`
 export const PopularSchemas = memo(function PopularSchemas() {
   const [schemas, setSchemas] = useState<Schema[]>([])
   
-  async function fetchSchemas() {
+  async function fetchData() {
     setSchemas(await apiService.get('popular/'))
   }
   
   useEffect(() => {
-    fetchSchemas()
+    fetchData()
   }, [])
   
   return (

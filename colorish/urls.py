@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('generate/', main_views.generate),
     path('popular/', main_views.popular),
+    path('networks/', main_views.networks),
+    path('network/<int:network_id>', main_views.network),
 ]

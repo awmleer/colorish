@@ -5,6 +5,7 @@ import {GlobalStyle} from './global-style'
 import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom'
 import {GeneratePage} from './generate.page'
 import {HomePage} from './home.page'
+import {NetworksPage} from './networks.page'
 
 export const App = function() {
   return (
@@ -15,7 +16,7 @@ export const App = function() {
         <Switch>
           <Route path='/' component={HomePage} exact/>
           <Route path='/generate' component={GeneratePage}/>
-          <Route path='/models' component={GeneratePage}/>
+          <Route path='/networks' component={NetworksPage}/>
           <Route path='/likes' component={GeneratePage}/>
         </Switch>
       </>
