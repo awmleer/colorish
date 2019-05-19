@@ -20,4 +20,5 @@ from main import views as main_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('generate/', main_views.generate),
+    path('popular/', main_views.popular),
 ]

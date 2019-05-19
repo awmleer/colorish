@@ -1,5 +1,6 @@
 import React, {memo} from 'react'
 import {withRouter} from 'react-router'
+import {PopularSchemas} from './popular-schemas'
 
 export const HomePage = withRouter(memo(function HomePage() {
   return (
@@ -12,11 +13,7 @@ export const HomePage = withRouter(memo(function HomePage() {
           </div>
         </div>
       </section>
-      <section className='section'>
-        <div className='container'>
-          <h2 className='title'>Popular Color Schemas</h2>
-        </div>
-      </section>
+      <PopularSchemas/>
     </>
   )
 }))
