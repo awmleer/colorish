@@ -2,9 +2,8 @@ import styled from 'styled-components'
 import * as React from 'react'
 import {Color} from '../classes/color'
 import {SchemaStore} from '../stores/schema.store'
-import {memo} from 'react'
+import {memo, useRef} from 'react'
 import {useStore} from 'reto'
-import {readableColor} from 'polished'
 
 const Container = styled.div`
   display: flex;
@@ -13,9 +12,7 @@ const Container = styled.div`
 `
 
 
-const Info = styled.div`
-
-`
+const Info = styled.div``
 
 const ColorBlock = styled.div<{
   c: Color
@@ -24,6 +21,7 @@ const ColorBlock = styled.div<{
   height: 100%;
   background-color: ${props => props.c.str};
   position: relative;
+  overflow: hidden;
   > ${Info} {
     opacity: 0;
     transition: opacity ease 0.2s;
@@ -40,6 +38,32 @@ const ColorBlock = styled.div<{
   }
 `
 
+const CopyTarget = styled.input`
+  position: absolute;
+  bottom: -30px;
+`
+
+export const ColorCard = memo<{color: Color}>(function Card(props){
+  const copyTargetRef = useRef<HTMLInputElement>()
+  function copy() {
+    if (!copyTargetRef.current) return
+    copyTargetRef.current.select()
+    console.log(document.execCommand('copy'))
+    console.log(1)
+  }
+  
+  return (
+    <ColorBlock c={props.color}>
+      <Info>
+        <CopyTarget ref={copyTargetRef} defaultValue={props.color.str}/>
+        {props.color.str} <a onClick={copy}><i className="fas fa-clone"/></a><br/>
+        hue: {props.color.hsl.hue.toFixed(0)}<br/>
+        saturation: {props.color.hsl.saturation.toFixed(2)}<br/>
+        lightness: {props.color.hsl.lightness.toFixed(2)}<br/>
+      </Info>
+    </ColorBlock>
+  )
+})
 
 export const Palette = memo(function Palette() {
   const schemaStore = useStore(SchemaStore)
@@ -51,14 +75,7 @@ export const Palette = memo(function Palette() {
   return colors.length > 0 && (
     <Container>
       {colors.map((color, index) => (
-        <ColorBlock c={color} key={index}>
-          <Info>
-            {color.str} <a><i className="fas fa-clone"/></a><br/>
-            hue: {color.hsl.hue.toFixed(0)}<br/>
-            saturation: {color.hsl.saturation.toFixed(2)}<br/>
-            lightness: {color.hsl.lightness.toFixed(2)}<br/>
-          </Info>
-        </ColorBlock>
+        <ColorCard color={color} key={color.str}/>
       ))}
     </Container>
   )
