@@ -1,15 +1,12 @@
 import importlib
 import os
-import shutil
 import sys
 import train
 
 
 for network_id in sys.argv[1:]:
     importlib.reload(train)
-    print('Starting training model #' + network_id)
-    train.train()
+    print('Start training model #' + network_id)
     target_dir = 'state-dict/' + network_id
     os.mkdir(target_dir)
-    shutil.copyfile('temp/discriminator', target_dir + '/discriminator')
-    shutil.copyfile('temp/generator', target_dir + '/generator')
+    train.train(target_dir)

@@ -2,6 +2,7 @@ import colorsys
 import json
 import os
 import random
+import time
 
 import torch
 import torch.nn as nn
@@ -11,6 +12,11 @@ criterion = nn.MSELoss()
 
 discriminator = Discriminator()
 generator = Generator()
+
+training_log = {
+    'time': time.time(),
+    'rounds': [],
+}
 
 def weights_init(m):
     classname = m.__class__.__name__
@@ -41,7 +47,7 @@ def get_real_color_tensor():
             data.append(hsv[i])
     return torch.tensor(data)
 
-discriminator_learning_rate = 0.01
+discriminator_learning_rate = 0.012
 isFake = True
 
 def train_discriminator():
@@ -79,16 +85,14 @@ def train_generator():
 def do_training():
     training_generator = False
     total_loss = 0
-    total_round = 150
+    total_round = 300
     batch_size = 800
     loss_threshold_count = 0
-    for i in range(2 * total_round):
+    for i in range(total_round):
+        current_mode = 'G' if training_generator else 'D'
         if i % 2 == 0:
-            print('%d/%d' % (i // 2 + 1, total_round))
-        if training_generator:
-            print('G', end=' ')
-        else:
-            print('D', end=' ')
+            print('%d - %d' % (i + 1, i + 2))
+        print(current_mode, end=' ')
         for _ in range(batch_size):
             if training_generator:
                 _, loss = train_generator()
@@ -99,6 +103,10 @@ def do_training():
             total_loss += loss
         average_loss = total_loss / batch_size
         print('%.5f' % average_loss, end=' ')
+        training_log['rounds'].append({
+            'mode': current_mode,
+            'loss': average_loss,
+        })
         if (i >= 240 and average_loss < 0.1) or (i >= 160 and average_loss < 0.09) or (i >= 120 and average_loss < 0.08) or (i >= 80 and average_loss < 0.07):
             loss_threshold_count += 1
         else:
@@ -112,11 +120,13 @@ def do_training():
         total_loss = 0
 
 
-def train():
+def train(target_dir='temp/'):
     do_training()
-    torch.save(discriminator.state_dict(), 'temp/discriminator')
-    torch.save(generator.state_dict(), 'temp/generator')
-    print('training finished')
+    torch.save(discriminator.state_dict(), target_dir + '/discriminator')
+    torch.save(generator.state_dict(), target_dir + '/generator')
+    with open(target_dir + '/log.json', 'w') as log_file:
+        json.dump(training_log, log_file)
+    print('Training finished.')
 
 if __name__ == '__main__':
     train()
