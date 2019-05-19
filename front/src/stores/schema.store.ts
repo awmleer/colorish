@@ -24,8 +24,12 @@ export class SchemaStore extends Store<State> {
     this.generate()
   }
   
-  generate = async () => {
-    const data = await apiService.post(`generate/`, null, this.state.config)
+  generate = async (networkId?: string) => {
+    const param = networkId ? {
+      ...this.state.config,
+      networkId
+    } : this.state.config
+    const data = await apiService.post(`generate/`, null, param)
     this.mutate(draft => {
       const colors = []
       for (const c of data.colors) {

@@ -27,6 +27,10 @@ export const App = withProvider({
     schemaStore.generate()
   }
   
+  function generateASimilarOne() {
+    schemaStore.generate(schema.networkId)
+  }
+  
   function changeNetworkId(event: ChangeEvent<HTMLInputElement>) {
     schemaStore.mutate(state => {
       state.config.networkId = event.target.value
@@ -46,13 +50,20 @@ export const App = withProvider({
                 </span>
               <span>Generate</span>
             </button>
+            &nbsp;
+            <button className="button is-large" onClick={generateASimilarOne}>
+                <span className="icon is-small">
+                  <i className="fas fa-sync-alt"/>
+                </span>
+              <span>Generate a Similar One</span>
+            </button>
           </div>
-          <div className="has-text-centered">
-            <input className="input" onChange={changeNetworkId} value={config.networkId}/>
-          </div>
+          {/*<div className="has-text-centered">*/}
+          {/*  <input className="input" onChange={changeNetworkId} value={config.networkId}/>*/}
+          {/*</div>*/}
           {schema && (
             <Info>
-              Generated using model {schema.networkId} in {schema.time.toFixed(2)}ms.
+              Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms.
             </Info>
           )}
           <Space/>
