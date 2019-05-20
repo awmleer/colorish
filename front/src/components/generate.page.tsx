@@ -42,17 +42,17 @@ export const GeneratePage = withProvider({
     <section className='section'>
       <div className='container'>
         <div className='has-text-centered'>
-          <button className='button is-success is-large' onClick={generate}>
-                <span className='icon is-small'>
-                  <i className='fas fa-bong'/>
-                </span>
+          <button className='button is-dark is-large' onClick={generate}>
+            <span className='icon'>
+              <i className='fas fa-bong'/>
+            </span>
             <span>Generate</span>
           </button>
           &nbsp;
           <button className='button is-large' onClick={generateASimilarOne}>
-                <span className='icon is-small'>
-                  <i className='fas fa-sync-alt'/>
-                </span>
+            <span className='icon'>
+              <i className='fas fa-sync-alt'/>
+            </span>
             <span>Generate a Similar One</span>
           </button>
         </div>

@@ -24,4 +24,13 @@ export class AccountStore extends Store<State> {
     })
   }
   
+  login = async (username: string, password: string) => {
+    const result = await apiService.post('login/', null, {
+      username,
+      password,
+    })
+    this.fetchUser()
+    return result
+  }
+  
 }

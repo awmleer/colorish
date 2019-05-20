@@ -9,6 +9,7 @@ import {NetworksPage} from './networks.page'
 import {NetworkDetailPage} from './network-detail.page'
 import {Provider} from 'reto'
 import {AccountStore} from '../stores/account.store'
+import {LoginPage} from './login.page'
 
 export const App = function() {
   return (
@@ -23,6 +24,7 @@ export const App = function() {
             <Route path='/networks' component={NetworksPage} exact/>
             <Route path='/networks/:id' component={NetworkDetailPage} exact/>
             <Route path='/likes' component={GeneratePage} exact/>
+            <Route path='/login' component={LoginPage} exact/>
           </Switch>
         </>
       </Router>

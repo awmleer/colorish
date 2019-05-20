@@ -1,6 +1,7 @@
 import json
 import os
 
+from django.contrib import auth
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -18,6 +19,17 @@ def me(request):
         })
     else:
         return JsonResponse(None, safe=False)
+
+
+@require_http_methods(['POST'])
+@json_request
+def login(request):
+    user = auth.authenticate(username=request.json['username'], password=request.json['password'])
+    if user is None:
+        return JsonResponse(False, safe=False)
+    else:
+        auth.login(request, user)
+        return JsonResponse(True, safe=False)
 
 
 @require_http_methods(['POST'])
