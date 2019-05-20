@@ -1,6 +1,7 @@
 import json
 import os
 
+from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
@@ -27,7 +28,7 @@ def generate(request):
 
 @require_http_methods(['GET'])
 def popular(request, network_id=None):
-    schemas = Schema.objects.order_by('-created_at') # TODO
+    schemas = Schema.objects.annotate(liked_users_count=Count('liked_users')).order_by('-liked_users_count', '-id')
     ret = []
     if network_id:
         schemas = schemas.filter(network_id=network_id)

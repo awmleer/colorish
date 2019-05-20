@@ -13,6 +13,7 @@ class Schema(models.Model):
     time = models.FloatField()
     network_id = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    liked_users = models.ManyToManyField(to='auth.User', related_name='likes')
 
     def as_dict(self):
         return {
