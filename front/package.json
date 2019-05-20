@@ -11,12 +11,14 @@
     "yarn": "1.15.x"
   },
   "dependencies": {
+    "@types/chart.js": "^2.7.52",
     "@types/lodash": "^4.14.129",
     "@types/qs": "^6.5.3",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.x",
     "@types/react-router-dom": "^4.3.1",
     "@types/styled-components": "^4.1.4",
+    "chart.js": "^2.8.0",
     "lodash": "^4.17.11",
     "polished": "3.0.x",
     "qs": "^6.7.0",
