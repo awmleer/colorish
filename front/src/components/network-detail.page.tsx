@@ -70,7 +70,7 @@ export const NetworkDetailPage = withRouter<Props>(memo(function NetworkDetailPa
       <section className='section'>
         <div className='container'>
           <h3 className='title is-4'>Training Log</h3>
-          <canvas ref={chartCanvasRef} height='200' width='400'/>
+          <canvas ref={chartCanvasRef}/>
         </div>
       </section>
       <section className='section'>
