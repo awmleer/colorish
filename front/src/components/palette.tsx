@@ -48,15 +48,13 @@ export const ColorCard = memo<{color: Color}>(function Card(props){
   function copy() {
     if (!copyTargetRef.current) return
     copyTargetRef.current.select()
-    console.log(document.execCommand('copy'))
-    console.log(1)
   }
   
   return (
     <ColorBlock c={props.color}>
       <Info>
         <CopyTarget ref={copyTargetRef} defaultValue={props.color.str}/>
-        {props.color.str} <a onClick={copy}><i className='fas fa-clone'/></a><br/>
+        {props.color.str} <a onClick={copy} className='clickable'><i className='fas fa-clone'/></a><br/>
         hue: {props.color.hsl.hue.toFixed(0)}<br/>
         saturation: {props.color.hsl.saturation.toFixed(2)}<br/>
         lightness: {props.color.hsl.lightness.toFixed(2)}<br/>

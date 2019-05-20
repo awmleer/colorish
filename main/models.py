@@ -15,6 +15,9 @@ class Schema(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to='auth.User', related_name='likes')
 
+    def like_count(self):
+        return self.liked_users.count()
+
     def as_dict(self, user=None):
         return {
             'id': self.id,
@@ -25,6 +28,6 @@ class Schema(models.Model):
             'createdAt': str(self.created_at),
             'quality': self.quality,
             'liked': None if user is None else self.liked_users.filter(id=user.id).exists(),
-            'likeCount': self.liked_users.count(),
+            'likeCount': self.like_count(),
         }
 

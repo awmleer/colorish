@@ -8,6 +8,6 @@ export class Schema {
   createdAt: string
   viewCount: number
   likeCount: number
-  liked: number
+  liked: boolean
   quality: number
 }

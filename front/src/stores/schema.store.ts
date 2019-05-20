@@ -2,6 +2,7 @@ import {Store, store} from 'reto'
 import {Schema} from '../classes/schema'
 import {parseToHsl, parseToRgb, rgb} from 'polished'
 import {Color} from '../classes/color'
+import {apiService} from '../services/api.service'
 
 type State = {
   schema: Schema
@@ -27,5 +28,14 @@ export class SchemaStore extends Store<State> {
       schema,
       colors,
     }
+  }
+  
+  toggleLike = async () => {
+    console.log(1)
+    const result = await apiService.get(`toggle-like/${this.state.schema.id}/`)
+    this.mutate(state => {
+      state.schema.likeCount = result.likeCount
+      state.schema.liked = result.liked
+    })
   }
 }

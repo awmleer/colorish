@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from colorish.decorators import json_request
+from colorish.decorators import json_request, require_login
 from main.models import Schema
 from . import generator
 
@@ -91,4 +91,20 @@ def schema(request, schema_id):
     s.view_count += 1
     s.save()
     return JsonResponse(s.as_dict(user=user))
+
+
+@require_login
+@require_http_methods(['GET'])
+def toggle_like(request, schema_id):
+    s = Schema.objects.get(id=schema_id)
+    u = request.user
+    liked = s.liked_users.filter(id=u.id).exists()
+    if liked:
+        s.liked_users.remove(u)
+    else:
+        s.liked_users.add(u)
+    return JsonResponse({
+        'liked_count': s.like_count(),
+        'liked': not liked,
+    })
 

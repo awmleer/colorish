@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     //font-family: 'Raleway', sans-serif;
     //font-family: 'Roboto Slab', serif;
   }
-  a {
+  a.clickable {
     transition: opacity ease 0.15s;
     :hover {
       opacity: 0.85;
