@@ -1,5 +1,3 @@
-import {Color} from './color'
-
 export class Schema {
   id: number
   time: number

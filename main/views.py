@@ -108,3 +108,10 @@ def toggle_like(request, schema_id):
         'liked': not liked,
     })
 
+
+@require_login
+@require_http_methods(['GET'])
+def likes(request):
+    ret = [s.as_dict() for s in request.user.likes.all()]
+    return JsonResponse(ret, safe=False)
+

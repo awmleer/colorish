@@ -1,11 +1,10 @@
-import React, {memo, useState} from 'react'
+import React, {memo} from 'react'
 import {Schema} from '../classes/schema'
 import {Provider} from 'reto'
 import {SchemaStore} from '../stores/schema.store'
 import {Palette} from './palette'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import {apiService} from '../services/api.service'
 import {SchemaLikeButton} from './schema-like-button'
 
 const Container = styled.div`

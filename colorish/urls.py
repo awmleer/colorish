@@ -28,4 +28,5 @@ urlpatterns = [
     path('network/<str:network_id>/popular/', main_views.popular),
     path('schema/<str:schema_id>/', main_views.schema),
     path('toggle-like/<str:schema_id>/', main_views.toggle_like),
+    path('likes/', main_views.likes),
 ]

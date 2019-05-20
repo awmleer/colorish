@@ -31,7 +31,6 @@ export class SchemaStore extends Store<State> {
   }
   
   toggleLike = async () => {
-    console.log(1)
     const result = await apiService.get(`toggle-like/${this.state.schema.id}/`)
     this.mutate(state => {
       state.schema.likeCount = result.likeCount
