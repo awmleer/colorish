@@ -6,6 +6,7 @@ import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom
 import {GeneratePage} from './generate.page'
 import {HomePage} from './home.page'
 import {NetworksPage} from './networks.page'
+import {NetworkDetailPage} from './network-detail.page'
 
 export const App = function() {
   return (
@@ -15,9 +16,10 @@ export const App = function() {
         <NavBar/>
         <Switch>
           <Route path='/' component={HomePage} exact/>
-          <Route path='/generate' component={GeneratePage}/>
-          <Route path='/networks' component={NetworksPage}/>
-          <Route path='/likes' component={GeneratePage}/>
+          <Route path='/generate' component={GeneratePage} exact/>
+          <Route path='/networks' component={NetworksPage} exact/>
+          <Route path='/networks/:id' component={NetworkDetailPage} exact/>
+          <Route path='/likes' component={GeneratePage} exact/>
         </Switch>
       </>
     </Router>

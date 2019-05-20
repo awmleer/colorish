@@ -13,7 +13,12 @@ export const HomePage = withRouter(memo(function HomePage() {
           </div>
         </div>
       </section>
-      <PopularSchemas/>
+      <section className='section'>
+        <div className='container'>
+          <h2 className='title'>Popular Color Schemas</h2>
+          <PopularSchemas/>
+        </div>
+      </section>
     </>
   )
 }))

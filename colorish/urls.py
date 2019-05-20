@@ -22,5 +22,6 @@ urlpatterns = [
     path('generate/', main_views.generate),
     path('popular/', main_views.popular),
     path('networks/', main_views.networks),
-    path('network/<int:network_id>', main_views.network),
+    path('network/<str:network_id>', main_views.network),
+    path('network/<str:network_id>/popular/', main_views.popular),
 ]

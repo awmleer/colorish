@@ -25,22 +25,15 @@ def generate(request):
 
 
 @require_http_methods(['GET'])
-def popular(request):
-    schemas = Schema.objects.order_by('-created_at')[:9] # TODO
+def popular(request, network_id=None):
+    schemas = Schema.objects.order_by('-created_at') # TODO
     ret = []
-    for schema in schemas:
+    if network_id:
+        schemas = schemas.filter(network_id=network_id)
+    for schema in schemas[:9]:
         ret.append(schema.as_dict())
     return JsonResponse(ret, safe=False)
 
-@require_http_methods(['GET'])
-def recent(request):
-    schemas = Schema.objects.order_by('-created_at')
-    if 'networkId' in request.GET:
-        schemas = schemas.filter(network_id=request.GET['networkId'])
-    ret = []
-    for schema in schemas:
-        ret.append(schema.as_dict())
-    return JsonResponse(ret, safe=False)
 
 @require_http_methods(['GET'])
 def networks(request):
@@ -55,9 +48,10 @@ def networks(request):
 
 @require_http_methods(['GET'])
 def network(request, network_id):
-    ret = {
-        'networkId': network_id,
-        'schemaCount': Schema.objects.filter(network_id=network_id).count(),
-        'log': json.load('state-dict/' + network_id + '/log.json'),
-    }
+    with open('state-dict/' + network_id + '/log.json') as json_file:
+        ret = {
+            'networkId': network_id,
+            'schemaCount': Schema.objects.filter(network_id=network_id).count(),
+            'log': json.load(json_file),
+        }
     return JsonResponse(ret)

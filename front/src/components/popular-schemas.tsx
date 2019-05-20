@@ -10,29 +10,30 @@ const PaletteContainer = styled.div`
   margin-bottom: 36px;
 `
 
-export const PopularSchemas = memo(function PopularSchemas() {
+interface Props {
+  networkId?: string
+}
+
+export const PopularSchemas = memo<Props>(function PopularSchemas(props) {
   const [schemas, setSchemas] = useState<Schema[]>([])
   
   async function fetchData() {
-    setSchemas(await apiService.get('popular/'))
+    setSchemas(await apiService.get(props.networkId ? `network/${props.networkId}/popular/` : 'popular/'))
   }
   
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [props.networkId])
   
   return (
-    <section className='section'>
-      <div className='container'>
-        <h2 className='title'>Popular Color Schemas</h2>
-        {schemas.map((schema) => (
-          <Provider of={SchemaStore} args={[schema]} key={schema.id}>
-            <PaletteContainer>
-              <Palette/>
-            </PaletteContainer>
-          </Provider>
-        ))}
-      </div>
-    </section>
+    <>
+      {schemas.map((schema) => (
+        <Provider of={SchemaStore} args={[schema]} key={schema.id}>
+          <PaletteContainer>
+            <Palette/>
+          </PaletteContainer>
+        </Provider>
+      ))}
+    </>
   )
 })
