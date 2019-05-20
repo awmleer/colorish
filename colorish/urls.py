@@ -19,6 +19,7 @@ from main import views as main_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('me/', main_views.me),
     path('generate/', main_views.generate),
     path('popular/', main_views.popular),
     path('networks/', main_views.networks),

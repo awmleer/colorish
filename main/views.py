@@ -9,6 +9,17 @@ from colorish.decorators import json_request
 from main.models import Schema
 from . import generator
 
+
+@require_http_methods(['GET'])
+def me(request):
+    if request.user.is_authenticated:
+        return JsonResponse({
+            'username': request.user.username,
+        })
+    else:
+        return JsonResponse(None, safe=False)
+
+
 @require_http_methods(['POST'])
 @json_request
 def generate(request):
