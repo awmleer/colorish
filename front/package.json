@@ -8,7 +8,7 @@
     "build": "webpack --config webpack.prod.js"
   },
   "engines": {
-    "yarn": "1.15.x"
+    "yarn": "1.16.x"
   },
   "dependencies": {
     "@types/chart.js": "^2.7.52",
