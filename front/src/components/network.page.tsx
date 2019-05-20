@@ -10,7 +10,7 @@ interface Props extends RouteComponentProps<{
   id: string
 }>{}
 
-export const NetworkDetailPage = withRouter<Props>(memo(function NetworkDetailPage(props) {
+export const NetworkPage = withRouter<Props>(memo(function NetworkDetailPage(props) {
   const [network, setNetwork] = useState<Network>(null)
   const chartCanvasRef = useRef<HTMLCanvasElement>()
   

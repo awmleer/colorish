@@ -26,4 +26,5 @@ urlpatterns = [
     path('networks/', main_views.networks),
     path('network/<str:network_id>', main_views.network),
     path('network/<str:network_id>/popular/', main_views.popular),
+    path('schema/<str:schema_id>', main_views.schema),
 ]

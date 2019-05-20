@@ -35,6 +35,7 @@ def login(request):
 @require_http_methods(['POST'])
 @json_request
 def generate(request):
+    user = request.user if request.user.is_authenticated else None
     generated = generator.generate(
         network_id=request.json['networkId']
     )
@@ -46,17 +47,18 @@ def generate(request):
     )
     schema.set_colors(generated['colors'])
     schema.save()
-    return JsonResponse(schema.as_dict())
+    return JsonResponse(schema.as_dict(user=user))
 
 
 @require_http_methods(['GET'])
 def popular(request, network_id=None):
+    user = request.user if request.user.is_authenticated else None
     schemas = Schema.objects.annotate(liked_users_count=Count('liked_users')).order_by('-liked_users_count', '-id')
     ret = []
     if network_id:
         schemas = schemas.filter(network_id=network_id)
     for schema in schemas[:9]:
-        ret.append(schema.as_dict())
+        ret.append(schema.as_dict(user=user))
     return JsonResponse(ret, safe=False)
 
 
@@ -80,3 +82,13 @@ def network(request, network_id):
             'log': json.load(json_file),
         }
     return JsonResponse(ret)
+
+
+@require_http_methods(['GET'])
+def schema(request, schema_id):
+    user = request.user if request.user.is_authenticated else None
+    s = Schema.objects.get(id=schema_id)
+    s.view_count += 1
+    s.save()
+    return JsonResponse(s.as_dict(user=user))
+

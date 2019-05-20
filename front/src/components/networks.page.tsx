@@ -26,7 +26,7 @@ export const NetworksPage = withRouter(memo(function NetworksPage() {
       <div className='container'>
         {networks.map(network => (
           <Container key={network.networkId}>
-            <Link to={`/networks/${network.networkId}`} className='is-size-4'>
+            <Link to={`/network/${network.networkId}`} className='is-size-4'>
               #{network.networkId}
             </Link>
             <p><b>{network.schemaCount}</b> schema(s) are generated using this models.</p>

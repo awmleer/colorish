@@ -6,10 +6,11 @@ import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom
 import {GeneratePage} from './generate.page'
 import {HomePage} from './home.page'
 import {NetworksPage} from './networks.page'
-import {NetworkDetailPage} from './network-detail.page'
+import {NetworkPage} from './network.page'
 import {Provider} from 'reto'
 import {AccountStore} from '../stores/account.store'
 import {LoginPage} from './login.page'
+import {SchemaPage} from './schema.page'
 
 export const App = function() {
   return (
@@ -22,7 +23,8 @@ export const App = function() {
             <Route path='/' component={HomePage} exact/>
             <Route path='/generate' component={GeneratePage} exact/>
             <Route path='/networks' component={NetworksPage} exact/>
-            <Route path='/networks/:id' component={NetworkDetailPage} exact/>
+            <Route path='/network/:id' component={NetworkPage} exact/>
+            <Route path='/schema/:id' component={SchemaPage} exact/>
             <Route path='/likes' component={GeneratePage} exact/>
             <Route path='/login' component={LoginPage} exact/>
           </Switch>
