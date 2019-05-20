@@ -13,7 +13,7 @@ export const SchemaPage = withRouter<Props>(memo(function (props) {
   const [schema, setSchema] = useState<Schema>(null)
   
   async function fetchData() {
-    setSchema(await apiService.get(`schema/${props.match.params.id}`))
+    setSchema(await apiService.get(`schema/${props.match.params.id}/`))
   }
   
   useEffect(() => {
