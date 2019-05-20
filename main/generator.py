@@ -37,9 +37,11 @@ def generate(network_id=None):
     start = time.time()
     generated = network['generator'](torch.rand(16))
     colors = tensor_to_color_list(generated)
+    quality = network['discriminator'](generated).item()
     end = time.time()
     return {
         'time': (end - start) * 1000,
         'network_id': network['id'],
         'colors': colors,
+        'quality': quality,
     }

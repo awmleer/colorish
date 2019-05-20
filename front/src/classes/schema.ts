@@ -7,4 +7,5 @@ export class Schema {
   colors: any
   createdAt: string
   viewCount: number
+  quality: number
 }

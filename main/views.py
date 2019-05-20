@@ -17,7 +17,8 @@ def generate(request):
     schema = Schema(
         view_count=1,
         time=generated['time'],
-        network_id=generated['network_id']
+        network_id=generated['network_id'],
+        quality=generated['quality'],
     )
     schema.set_colors(generated['colors'])
     schema.save()

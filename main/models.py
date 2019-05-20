@@ -9,6 +9,7 @@ class Schema(models.Model):
     def set_colors(self, colors):
         self.colors = json.dumps(colors)
     view_count = models.PositiveIntegerField(default=0)
+    quality = models.FloatField()
     time = models.FloatField()
     network_id = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,5 +22,6 @@ class Schema(models.Model):
             'time': self.time,
             'networkId': self.network_id,
             'createdAt': str(self.created_at),
+            'quality': self.quality,
         }
 

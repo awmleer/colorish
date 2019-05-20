@@ -47,7 +47,7 @@ def get_real_color_tensor():
             data.append(hsv[i])
     return torch.tensor(data)
 
-discriminator_learning_rate = 0.011
+discriminator_learning_rate = 0.012
 isFake = True
 
 def train_discriminator():
@@ -70,7 +70,7 @@ def train_discriminator():
 
     return output, loss.item()
 
-generator_learning_rate = 0.013
+generator_learning_rate = 0.015
 
 def train_generator():
     generator.zero_grad()
@@ -85,9 +85,9 @@ def train_generator():
 def do_training():
     training_generator = False
     total_loss = 0
-    total_round = 300
+    total_round = 200
     batch_size = 500
-    loss_threshold_count = 0
+    # loss_threshold_count = 0
     for i in range(total_round):
         current_mode = 'G' if training_generator else 'D'
         if i % 2 == 0:
@@ -107,13 +107,13 @@ def do_training():
             'mode': current_mode,
             'loss': average_loss,
         })
-        if (i >= 240 and average_loss < 0.12) or (i >= 180 and average_loss < 0.1) or (i >= 120 and average_loss < 0.09) or (i >= 80 and average_loss < 0.08):
-            loss_threshold_count += 1
-        else:
-            loss_threshold_count = 0
-        if loss_threshold_count >= 6:
-            print('')
-            break
+        # if (i >= 240 and average_loss < 0.12) or (i >= 180 and average_loss < 0.1) or (i >= 120 and average_loss < 0.09) or (i >= 80 and average_loss < 0.08):
+        #     loss_threshold_count += 1
+        # else:
+        #     loss_threshold_count = 0
+        # if loss_threshold_count >= 6:
+        #     print('')
+        #     break
         if i % 2 != 0:
             print('')
         training_generator = not training_generator

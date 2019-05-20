@@ -62,7 +62,7 @@ export const GeneratePage = withProvider({
         {schema && (
           <Provider of={SchemaStore} args={[schema]} key={schema.id}>
             <Info>
-              Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms.
+              Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms. Quality point: <b>{schema.quality.toFixed(4)}</b>
             </Info>
             <Space/>
             <Palette/>
