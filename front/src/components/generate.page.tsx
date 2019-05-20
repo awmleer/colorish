@@ -1,17 +1,10 @@
 import {ChangeEvent, memo} from 'react'
 import {GenerateStore} from '../stores/generate.store'
-import {Provider, useStore, withProvider} from 'reto'
-import {Logo} from './previews/logo'
-import {Palette} from './palette'
-import {Poster} from './previews/poster'
+import {useStore, withProvider} from 'reto'
 import React from 'react';
 import styled from 'styled-components'
 import {withRouter} from 'react-router'
-import {SchemaStore} from '../stores/schema.store'
-
-const Space = styled.div`
-  height: 30px;
-`
+import {SchemaDetail} from './schema-detail'
 
 const Info = styled.div`
   text-align: center;
@@ -60,17 +53,12 @@ export const GeneratePage = withProvider({
         {/*  <input className='input' onChange={changeNetworkId} value={config.networkId}/>*/}
         {/*</div>*/}
         {schema && (
-          <Provider of={SchemaStore} args={[schema]} key={schema.id}>
+          <>
             <Info>
-              Generated using model <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms. Quality point: <b>{schema.quality.toFixed(4)}</b>
+              Generated using network <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms. Quality point is <b>{schema.quality.toFixed(4)}.</b>
             </Info>
-            <Space/>
-            <Palette/>
-            <Space/>
-            <Poster/>
-            <Space/>
-            <Logo/>
-          </Provider>
+            <SchemaDetail schema={schema}/>
+          </>
         )}
       </div>
     </section>

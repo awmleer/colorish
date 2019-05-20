@@ -3,7 +3,6 @@ import {memo, useState} from 'react'
 import * as React from 'react'
 import {useStore} from 'reto'
 import {AccountStore} from '../stores/account.store'
-import {apiService} from '../services/api.service'
 
 interface Props extends RouteComponentProps {}
 
