@@ -25,7 +25,10 @@ SECRET_KEY = 'ezq0o6&g#iww-)b5myunenq+kwe8!d==f322umfzft(=+me@g6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'colorish.sparker.xyz',
+]
 
 
 # Application definition

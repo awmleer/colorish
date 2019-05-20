@@ -15,7 +15,7 @@ export const NetworkPage = withRouter<Props>(memo(function NetworkDetailPage(pro
   const chartCanvasRef = useRef<HTMLCanvasElement>()
   
   async function fetchData() {
-    setNetwork(await apiService.get(`network/${props.match.params.id}`))
+    setNetwork(await apiService.get(`network/${props.match.params.id}/`))
   }
   
   useEffect(() => {
