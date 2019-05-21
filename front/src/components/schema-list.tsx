@@ -17,24 +17,6 @@ const Container = styled.div`
   }
 `
 
-// const SchemaListItem = memo<{
-//   schema: Schema
-// }>(function SchemaListItem(props) {
-//   const [schema, setSchema] = useState(props.schema)
-//
-//   async function like() {
-//
-//   }
-//
-//   function unlike() {
-//
-//   }
-//
-//   return (
-//
-//   )
-// })
-
 export const SchemaList = memo<{
   schemas: Schema[]
 }>(function SchemaList(props) {
