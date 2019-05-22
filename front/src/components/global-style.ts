@@ -1,6 +1,7 @@
 import {createGlobalStyle} from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Raleway|Ubuntu&display=swap');
   body {
     //font-family: 'Raleway', sans-serif;
     //font-family: 'Roboto Slab', serif;

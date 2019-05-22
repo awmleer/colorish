@@ -1,6 +1,6 @@
 import {memo, useMemo} from 'react'
 import {SchemaStore} from '../../stores/schema.store'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import * as React from 'react'
 import {Color} from '../../classes/color'
 import {rgb, setLightness, setSaturation} from 'polished'
@@ -14,7 +14,9 @@ interface ColoredProps {
 const Root = styled.div<ColoredProps>`
   background-color: ${props => props.c.str};
   padding: 80px 100px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Ubuntu', serif;
+  position: relative;
+  overflow: hidden;
 `
 
 const Content = styled.div`
@@ -23,7 +25,7 @@ const Content = styled.div`
 `
 
 const Logo = styled.div<ColoredProps>`
-  font-size: 128px;
+  font-size: 136px;
   margin-bottom: 1em;
   text-align: center;
   > i {
@@ -34,9 +36,9 @@ const Logo = styled.div<ColoredProps>`
     display: inline-block;
     margin-left: 0.3em;
     line-height: 1;
-    font-size: 161px;
+    font-size: 156px;
     position: relative;
-    bottom: -13px;
+    bottom: -12px;
   }
 `
 
@@ -76,6 +78,45 @@ const SecondLine = styled.div<ColoredProps>`
   }
 `
 
+const bubble = css`
+  position: absolute;
+  border-radius: 1000px;
+`
+const BubbleOne = styled.div<{
+  c: Color
+}>`
+  ${bubble};
+  left: -1300px;
+  top: -900px;
+  width: 1500px;
+  height: 1500px;
+  z-index: 1;
+  background: ${props => props.c.str};
+`
+const BubbleTwo = styled.div<{
+  c: Color
+}>`
+  ${bubble};
+  right: -700px;
+  top: -1300px;
+  width: 1400px;
+  height: 1400px;
+  z-index: 1;
+  background: ${props => props.c.str};
+`
+const BubbleThree = styled.div<{
+  c: Color
+}>`
+  ${bubble};
+  right: -120px;
+  top: 50px;
+  width: 280px;
+  height: 280px;
+  z-index: 0;
+  background: ${props => props.c.str};
+`
+
+
 export const Poster = memo(function Poster() {
   const schemaStore = useStore(SchemaStore)
   const {colors} = schemaStore.state
@@ -94,31 +135,36 @@ export const Poster = memo(function Poster() {
     if (c !== background) others.push(c)
   }
   
-  let [primary, secondary] = _.sampleSize(others, 2)
+  const primary = others[0]
+  
+  const secondaries = others.slice(1)
   
   return (
     <Root c={background}>
       <Content>
         <Logo c={primary}>
-          <i className='fas fa-cat'/>
-          <span>Cater</span>
+          <i className='fab fa-ubuntu'/>
+          <span>Ubuntu</span>
         </Logo>
         <SecondLine c={background}>
-          <Feature c={secondary}>
+          <Feature c={primary}>
             <i className='fas fa-bolt'/>
             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
           </Feature>
           <Operator>+</Operator>
-          <Feature c={secondary}>
+          <Feature c={primary}>
             <i className='fas fa-eye'/>
             <span>Culpa dicta dolorem excepturi expedita facere fugit.</span>
           </Feature>
           <Operator>=</Operator>
-          <Feature c={secondary}>
-            <i className='fas fa-cat'/>
+          <Feature c={primary}>
+            <i className='fab fa-ubuntu'/>
             <span>Illo impedit ipsum libero magni minus natus nostrum perspiciatis provident.</span>
           </Feature>
         </SecondLine>
+        <BubbleOne c={secondaries[0]}/>
+        <BubbleTwo c={secondaries[1]}/>
+        <BubbleThree c={secondaries[2]}/>
       </Content>
     </Root>
   )
