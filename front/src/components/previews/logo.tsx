@@ -38,7 +38,8 @@ const Part1 = styled(Part)<{c: Color}>`
 const Part2 = styled(Part)<{c: Color}>`
   border-top-right-radius:50px;
   border-bottom-right-radius:50px;
-  background: ${props => lighten(0.2, props.c.str)};
+  background: ${props => props.c.str};
+  opacity: 0.7;
 `
 const Part3 = styled(Part)<{c: Color}>`
   border-top-left-radius:50px;
@@ -59,31 +60,16 @@ const Part5 = styled(Part)<{c: Color}>`
 
 export const Logo = memo(function Logo(){
   const schemaStore = useStore(SchemaStore)
-  const {colors} = schemaStore.state
-  
-  let background = colors[0]
-  function getColorRank(c: Color) {
-    return c.hsl.lightness + c.hsl.saturation * 0.5
-  }
-  for (const c of colors) {
-    if (getColorRank(c) < getColorRank(background)) {
-      background = c
-    }
-  }
-  
-  const others = []
-  for (const c of colors) {
-    if (c !== background) others.push(c)
-  }
+  const {primary, background, secondaries} = schemaStore.state.allocation
   
   return (
     <Container c={background}>
       <Wrapper>
-        <Part1 c={others[0]}/>
-        <Part2 c={others[0]}/>
-        <Part3 c={others[1]}/>
-        <Part4 c={others[2]}/>
-        <Part5 c={others[3]}/>
+        <Part1 c={primary}/>
+        <Part2 c={primary}/>
+        <Part3 c={secondaries[0]}/>
+        <Part4 c={secondaries[1]}/>
+        <Part5 c={secondaries[2]}/>
       </Wrapper>
     </Container>
   )

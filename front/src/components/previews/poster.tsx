@@ -119,25 +119,7 @@ const BubbleThree = styled.div<{
 
 export const Poster = memo(function Poster() {
   const schemaStore = useStore(SchemaStore)
-  const {colors} = schemaStore.state
-  
-  let background = colors[0]
-  function getColorRank(c: Color) {
-    return c.hsl.lightness + c.hsl.saturation * 0.5
-  }
-  for (const c of colors) {
-    if (getColorRank(c) < getColorRank(background)) {
-      background = c
-    }
-  }
-  const others = []
-  for (const c of colors) {
-    if (c !== background) others.push(c)
-  }
-  
-  const primary = others[0]
-  
-  const secondaries = others.slice(1)
+  const {primary, background, secondaries} = schemaStore.state.allocation
   
   return (
     <Root c={background}>
