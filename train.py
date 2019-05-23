@@ -7,6 +7,7 @@ import time
 import torch
 import torch.nn as nn
 from networks import Discriminator, Generator
+from utils import tensor_to_color_list
 
 criterion = nn.MSELoss()
 
@@ -19,9 +20,10 @@ training_log = {
 }
 
 def weights_init(m):
+    # pass
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.048, 0.5)
+        nn.init.normal_(m.weight.data, 0.046, 0.48)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
@@ -47,10 +49,10 @@ def get_real_color_tensor():
             data.append(hsv[i])
     return torch.tensor(data)
 
-discriminator_learning_rate = 0.012
+discriminator_learning_rate = 0.02
 isFake = True
 
-def train_discriminator():
+def train_discriminator(i):
     random_color_file_seek()
     discriminator.zero_grad()
     global isFake
@@ -72,7 +74,7 @@ def train_discriminator():
 
 generator_learning_rate = 0.015
 
-def train_generator():
+def train_generator(i):
     generator.zero_grad()
     generated = generator(torch.rand(16))
     output = discriminator(generated)
@@ -82,11 +84,18 @@ def train_generator():
         p.data.add_(-generator_learning_rate, p.grad.data)
     return output, loss.item()
 
+def sample():
+    generated = generator(torch.rand(16))
+    colors = tensor_to_color_list(generated)
+    for color in colors:
+        print('<div class="color-block" style="background-color: rgb(%d, %d, %d)"></div>' % (color[0], color[1], color[2]))
+    return colors
+
 def do_training():
     training_generator = False
     total_loss = 0
-    total_round = 200
-    batch_size = 500
+    total_round = 140
+    batch_size = 300
     # loss_threshold_count = 0
     for i in range(total_round):
         current_mode = 'G' if training_generator else 'D'
@@ -95,9 +104,9 @@ def do_training():
         print(current_mode, end=' ')
         for _ in range(batch_size):
             if training_generator:
-                _, loss = train_generator()
+                _, loss = train_generator(i)
             else:
-                _, loss = train_discriminator()
+                _, loss = train_discriminator(i)
             if loss is None:
                 return
             total_loss += loss
@@ -118,6 +127,17 @@ def do_training():
             print('')
         training_generator = not training_generator
         total_loss = 0
+
+        #test
+        # if (i + 1) % 50 == 0:
+        #     print(i+1)
+        #     print('<div>')
+        #     for i in range(5):
+        #         print('<div class="schema">')
+        #         sample()
+        #         print('</div>')
+        #     print('</div>')
+
 
 
 def train(target_dir='temp/'):
