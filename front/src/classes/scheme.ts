@@ -1,4 +1,4 @@
-export class Schema {
+export class Scheme {
   id: number
   time: number
   networkId: string

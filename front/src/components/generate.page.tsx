@@ -4,7 +4,7 @@ import {useStore, withProvider} from 'reto'
 import React from 'react';
 import styled from 'styled-components'
 import {withRouter} from 'react-router'
-import {SchemaDetail} from './schema-detail'
+import {SchemeDetail} from './scheme-detail'
 
 const Info = styled.div`
   text-align: center;
@@ -15,14 +15,14 @@ export const GeneratePage = withProvider({
   of: GenerateStore
 })(withRouter(memo(function GeneratePage(props) {
   const generateStore = useStore(GenerateStore)
-  const {schema, config} = generateStore.state
+  const {scheme, config} = generateStore.state
   
   function generate() {
     generateStore.generate()
   }
   
   function generateASimilarOne() {
-    generateStore.generate(schema.networkId)
+    generateStore.generate(scheme.networkId)
   }
   
   function changeNetworkId(event: ChangeEvent<HTMLInputElement>) {
@@ -52,12 +52,12 @@ export const GeneratePage = withProvider({
         {/*<div className='has-text-centered'>*/}
         {/*  <input className='input' onChange={changeNetworkId} value={config.networkId}/>*/}
         {/*</div>*/}
-        {schema && (
+        {scheme && (
           <>
             <Info>
-              Generated using network <b>#{schema.networkId}</b> in <b>{schema.time.toFixed(2)}</b>ms. Quality point is <b>{schema.quality.toFixed(4)}.</b>
+              Generated using network <b>#{scheme.networkId}</b> in <b>{scheme.time.toFixed(2)}</b>ms. Quality point is <b>{scheme.quality.toFixed(4)}.</b>
             </Info>
-            <SchemaDetail schema={schema}/>
+            <SchemeDetail scheme={scheme}/>
           </>
         )}
       </div>

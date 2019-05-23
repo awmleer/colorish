@@ -978,7 +978,7 @@ ajv@^6.1.0:
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.4.1"
+    json-scheme-traverse "^0.4.1"
     uri-js "^4.2.2"
 
 ansi-colors@^3.0.0:
@@ -1821,7 +1821,7 @@ css-loader@^2.0.0:
     postcss-modules-scope "^2.1.0"
     postcss-modules-values "^2.0.0"
     postcss-value-parser "^3.3.0"
-    schema-utils "^1.0.0"
+    scheme-utils "^1.0.0"
 
 css-select@^1.1.0:
   version "1.2.0"
@@ -3188,9 +3188,9 @@ json-parse-better-errors@^1.0.2:
   resolved "http://registry.npm.taobao.org/json-parse-better-errors/download/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha1-u4Z8+zRQ5pEHwTHRxRS6s9yLyqk=
 
-json-schema-traverse@^0.4.1:
+json-scheme-traverse@^0.4.1:
   version "0.4.1"
-  resolved "http://registry.npm.taobao.org/json-schema-traverse/download/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
+  resolved "http://registry.npm.taobao.org/json-scheme-traverse/download/json-scheme-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
   integrity sha1-afaofZUTq4u4/mO9sJecRI5oRmA=
 
 json3@^3.3.2:
@@ -4611,9 +4611,9 @@ scheduler@^0.13.6:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-schema-utils@^1.0.0:
+scheme-utils@^1.0.0:
   version "1.0.0"
-  resolved "http://registry.npm.taobao.org/schema-utils/download/schema-utils-1.0.0.tgz#0b79a93204d7b600d4b2850d1f66c2a34951c770"
+  resolved "http://registry.npm.taobao.org/scheme-utils/download/scheme-utils-1.0.0.tgz#0b79a93204d7b600d4b2850d1f66c2a34951c770"
   integrity sha1-C3mpMgTXtgDUsoUNH2bCo0lRx3A=
   dependencies:
     ajv "^6.1.0"
@@ -4994,7 +4994,7 @@ style-loader@^0.23.0:
   integrity sha1-y5FUYG8+dxq2xKtjcCahBJF02SU=
   dependencies:
     loader-utils "^1.1.0"
-    schema-utils "^1.0.0"
+    scheme-utils "^1.0.0"
 
 styled-components@^4.1.2:
   version "4.2.0"
@@ -5062,7 +5062,7 @@ terser-webpack-plugin@^1.1.0:
   dependencies:
     cacache "^11.0.2"
     find-cache-dir "^2.0.0"
-    schema-utils "^1.0.0"
+    scheme-utils "^1.0.0"
     serialize-javascript "^1.4.0"
     source-map "^0.6.1"
     terser "^3.16.1"
@@ -5453,7 +5453,7 @@ webpack-dev-server@^3.1.8:
     loglevel "^1.6.1"
     opn "^5.5.0"
     portfinder "^1.0.20"
-    schema-utils "^1.0.0"
+    scheme-utils "^1.0.0"
     selfsigned "^1.10.4"
     semver "^6.0.0"
     serve-index "^1.9.1"
@@ -5524,7 +5524,7 @@ webpack@^4.19.0:
     mkdirp "~0.5.0"
     neo-async "^2.5.0"
     node-libs-browser "^2.0.0"
-    schema-utils "^1.0.0"
+    scheme-utils "^1.0.0"
     tapable "^1.1.0"
     terser-webpack-plugin "^1.1.0"
     watchpack "^1.5.0"

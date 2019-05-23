@@ -133,7 +133,7 @@ def do_training():
         #     print(i+1)
         #     print('<div>')
         #     for i in range(5):
-        #         print('<div class="schema">')
+        #         print('<div class="scheme">')
         #         sample()
         #         print('</div>')
         #     print('</div>')

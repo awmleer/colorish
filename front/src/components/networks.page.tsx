@@ -29,7 +29,7 @@ export const NetworksPage = withRouter(memo(function NetworksPage() {
             <Link to={`/network/${network.networkId}`} className='is-size-4'>
               #{network.networkId}
             </Link>
-            <p><b>{network.schemaCount}</b> schema(s) are generated using this models.</p>
+            <p><b>{network.schemeCount}</b> scheme(s) are generated using this models.</p>
           </Container>
         ))}
       </div>

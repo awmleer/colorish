@@ -1,11 +1,11 @@
 import React, {memo} from 'react'
-import {Schema} from '../classes/schema'
+import {Scheme} from '../classes/scheme'
 import {Provider} from 'reto'
-import {SchemaStore} from '../stores/schema.store'
+import {SchemeStore} from '../stores/scheme.store'
 import {Palette} from './palette'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import {SchemaLikeButton} from './schema-like-button'
+import {SchemeLikeButton} from './scheme-like-button'
 
 const Container = styled.div`
   margin-bottom: 36px;
@@ -17,27 +17,27 @@ const Container = styled.div`
   }
 `
 
-export const SchemaList = memo<{
-  schemas: Schema[]
-}>(function SchemaList(props) {
+export const SchemeList = memo<{
+  schemes: Scheme[]
+}>(function SchemeList(props) {
   return (
     <>
-      {props.schemas.map((schema) => (
-        <Provider of={SchemaStore} args={[schema]} key={schema.id}>
+      {props.schemes.map((scheme) => (
+        <Provider of={SchemeStore} args={[scheme]} key={scheme.id}>
           <Container>
             <Palette/>
             <div className='level'>
               <div className='level-left'>
-                #{schema.id}
+                #{scheme.id}
               </div>
               <div className='level-right'>
-                <Link to={`/schema/${schema.id}`} className='button is-dark is-outlined'>
+                <Link to={`/scheme/${scheme.id}`} className='button is-dark is-outlined'>
                   <span className='icon'>
                     <i className='far fa-eye'/>
                   </span>
                   <span>View</span>
                 </Link>
-                <SchemaLikeButton/>
+                <SchemeLikeButton/>
               </div>
             </div>
           </Container>

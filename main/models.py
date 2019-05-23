@@ -2,7 +2,7 @@ import json
 
 from django.db import models
 
-class Schema(models.Model):
+class Scheme(models.Model):
     colors = models.TextField(default='[]')
     def get_colors(self):
         return json.loads(self.colors)

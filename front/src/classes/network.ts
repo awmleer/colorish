@@ -1,6 +1,6 @@
 export class Network {
   networkId: string
-  schemaCount: number
+  schemeCount: number
   log?: {
     time: number
     rounds: {

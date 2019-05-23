@@ -1,26 +1,26 @@
 import React, {memo} from 'react'
 import {Provider, useStore} from 'reto'
-import {SchemaStore} from '../stores/schema.store'
+import {SchemeStore} from '../stores/scheme.store'
 import {Palette} from './palette'
 import {Poster} from './previews/poster'
 import {Logo} from './previews/logo'
-import {Schema} from '../classes/schema'
+import {Scheme} from '../classes/scheme'
 import styled from 'styled-components'
-import {SchemaLikeButton} from './schema-like-button'
+import {SchemeLikeButton} from './scheme-like-button'
 
 const Space = styled.div`
   height: 30px;
 `
 
 interface Props {
-  schema: Schema
+  scheme: Scheme
 }
 
-export const SchemaDetail = memo<Props>(function SchemaDetail(props) {
+export const SchemeDetail = memo<Props>(function SchemeDetail(props) {
   return (
-    <Provider of={SchemaStore} args={[props.schema]} key={props.schema.id}>
+    <Provider of={SchemeStore} args={[props.scheme]} key={props.scheme.id}>
       <Space/>
-      <SchemaLikeButton/>
+      <SchemeLikeButton/>
       <Space/>
       <Palette/>
       <Space/>

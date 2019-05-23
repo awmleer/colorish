@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import * as React from 'react'
 import {Color} from '../../classes/color'
 import {useStore} from 'reto'
-import {SchemaStore} from '../../stores/schema.store'
+import {SchemeStore} from '../../stores/scheme.store'
 import {lighten} from 'polished'
 
 const Container = styled.div<{c: Color}>`
@@ -59,8 +59,8 @@ const Part5 = styled(Part)<{c: Color}>`
 
 
 export const Logo = memo(function Logo(){
-  const schemaStore = useStore(SchemaStore)
-  const {primary, background, secondaries} = schemaStore.state.allocation
+  const schemeStore = useStore(SchemeStore)
+  const {primary, background, secondaries} = schemeStore.state.allocation
   
   return (
     <Container c={background}>

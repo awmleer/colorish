@@ -3,7 +3,7 @@ import {memo, useEffect, useRef, useState} from 'react'
 import * as React from 'react'
 import {Network} from '../classes/network'
 import {apiService} from '../services/api.service'
-import {PopularSchemas} from './popular-schemas'
+import {PopularSchemes} from './popular-schemes'
 import Chart from 'chart.js';
 
 interface Props extends RouteComponentProps<{
@@ -64,7 +64,7 @@ export const NetworkPage = withRouter<Props>(memo(function NetworkDetailPage(pro
       <section className='section'>
         <div className='container'>
           <h2 className='title'>Network #{network.networkId}</h2>
-          <p><b>{network.schemaCount}</b> schema(s) are generated using this models.</p>
+          <p><b>{network.schemeCount}</b> scheme(s) are generated using this models.</p>
         </div>
       </section>
       <section className='section'>
@@ -75,8 +75,8 @@ export const NetworkPage = withRouter<Props>(memo(function NetworkDetailPage(pro
       </section>
       <section className='section'>
         <div className='container'>
-          <h3 className='title is-4'>Popular Schemas</h3>
-          <PopularSchemas networkId={network.networkId}/>
+          <h3 className='title is-4'>Popular Schemes</h3>
+          <PopularSchemes networkId={network.networkId}/>
         </div>
       </section>
     </>

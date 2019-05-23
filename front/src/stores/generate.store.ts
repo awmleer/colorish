@@ -1,9 +1,9 @@
 import {Store, store} from 'reto'
 import {apiService} from '../services/api.service'
-import {Schema} from '../classes/schema'
+import {Scheme} from '../classes/scheme'
 
 interface State {
-  schema: Schema
+  scheme: Scheme
   config: {
     networkId: string
   }
@@ -12,7 +12,7 @@ interface State {
 @store
 export class GenerateStore extends Store<State> {
   state: State = {
-    schema: null,
+    scheme: null,
     config: {
       networkId: ''
     }
@@ -30,7 +30,7 @@ export class GenerateStore extends Store<State> {
     } : this.state.config
     const data = await apiService.post(`generate/`, null, param)
     this.mutate(state => {
-      state.schema = data
+      state.scheme = data
     })
   }
   

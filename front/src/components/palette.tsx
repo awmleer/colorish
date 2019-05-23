@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as React from 'react'
 import {Color} from '../classes/color'
-import {SchemaStore} from '../stores/schema.store'
+import {SchemeStore} from '../stores/scheme.store'
 import {memo, useRef} from 'react'
 import {useStore} from 'reto'
 
@@ -64,8 +64,8 @@ export const ColorCard = memo<{color: Color}>(function Card(props){
 })
 
 export const Palette = memo(function Palette() {
-  const schemaStore = useStore(SchemaStore)
-  const {colors} = schemaStore.state
+  const schemeStore = useStore(SchemeStore)
+  const {colors} = schemeStore.state
   
   return (
     <Container>

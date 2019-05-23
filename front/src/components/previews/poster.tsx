@@ -1,5 +1,5 @@
 import {memo, useMemo} from 'react'
-import {SchemaStore} from '../../stores/schema.store'
+import {SchemeStore} from '../../stores/scheme.store'
 import styled, {css} from 'styled-components'
 import * as React from 'react'
 import {Color} from '../../classes/color'
@@ -118,8 +118,8 @@ const BubbleThree = styled.div<{
 
 
 export const Poster = memo(function Poster() {
-  const schemaStore = useStore(SchemaStore)
-  const {primary, background, secondaries} = schemaStore.state.allocation
+  const schemeStore = useStore(SchemeStore)
+  const {primary, background, secondaries} = schemeStore.state.allocation
   
   return (
     <Root c={background}>
