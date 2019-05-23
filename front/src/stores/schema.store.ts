@@ -52,7 +52,7 @@ function allocateColors(colors: Color[]) {
   
   let background = pool[0]
   function backgroundRank(c: Color) {
-    return Math.min(c.hsl.lightness, 1 - c.hsl.lightness) + c.hsl.saturation * 0.6
+    return Math.min(c.hsl.lightness, 1 - c.hsl.lightness) + c.hsl.saturation * 0.5
   }
   for (const c of pool) {
     if (backgroundRank(c) < backgroundRank(background)) {
