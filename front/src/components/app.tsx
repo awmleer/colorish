@@ -23,7 +23,7 @@ export const App = function() {
           <Switch>
             <Route path='/' component={HomePage} exact/>
             <Route path='/generate' component={GeneratePage} exact/>
-            <Route path='/networks' component={NetworksPage} exact/>
+            <Route path='/network' component={NetworksPage} exact/>
             <Route path='/network/:id' component={NetworkPage} exact/>
             <Route path='/scheme/:id' component={SchemePage} exact/>
             <Route path='/likes' component={LikesPage} exact/>

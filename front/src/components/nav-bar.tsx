@@ -23,7 +23,7 @@ export const NavBar = function() {
           <div className='navbar-start'>
             <NavLink to='/' className='navbar-item' activeClassName='is-active' exact>Home</NavLink>
             <NavLink to='/generate' className='navbar-item' activeClassName='is-active'>Generate</NavLink>
-            <NavLink to='/networks' className='navbar-item' activeClassName='is-active'>Networks</NavLink>
+            <NavLink to='/network' className='navbar-item' activeClassName='is-active'>Networks</NavLink>
             <NavLink to='/likes' className='navbar-item' activeClassName='is-active'>Likes</NavLink>
           </div>
   

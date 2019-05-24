@@ -2,8 +2,9 @@ import json
 import os
 
 from django.contrib import auth
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
 
 from colorish.decorators import json_request, require_login
@@ -48,6 +49,18 @@ def generate(request):
     scheme.set_colors(generated['colors'])
     scheme.save()
     return JsonResponse(scheme.as_dict(user=user))
+
+
+@staff_member_required
+@require_http_methods(['GET'])
+def bulk_generate(request, network_id):
+    for i in range(20):
+        generated = generator.generate(network_id=network_id)
+        scheme = Scheme(view_count=1, time=generated['time'], network_id=generated['network_id'], quality=generated['quality'], )
+        scheme.set_colors(generated['colors'])
+        scheme.save()
+    return HttpResponse('success')
+
 
 
 @require_http_methods(['GET'])
@@ -112,6 +125,7 @@ def toggle_like(request, scheme_id):
 @require_login
 @require_http_methods(['GET'])
 def likes(request):
-    ret = [s.as_dict() for s in request.user.likes.all()]
+    user = request.user if request.user.is_authenticated else None
+    ret = [s.as_dict(user) for s in request.user.likes.all()]
     return JsonResponse(ret, safe=False)
 

@@ -23,7 +23,7 @@ def weights_init(m):
     # pass
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.046, 0.48)
+        nn.init.normal_(m.weight.data, 0.048, 0.45)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
@@ -94,8 +94,8 @@ def sample():
 def do_training():
     training_generator = False
     total_loss = 0
-    total_round = 140
-    batch_size = 300
+    total_round = 200
+    batch_size = 400
     # loss_threshold_count = 0
     for i in range(total_round):
         current_mode = 'G' if training_generator else 'D'

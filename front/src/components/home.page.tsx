@@ -1,6 +1,7 @@
 import React, {memo} from 'react'
 import {withRouter} from 'react-router'
 import {PopularSchemes} from './popular-schemes'
+import {Link} from 'react-router-dom'
 
 export const HomePage = withRouter(memo(function HomePage() {
   return (
@@ -10,6 +11,7 @@ export const HomePage = withRouter(memo(function HomePage() {
           <div className='container font-raleway'>
             <h1 className='title' style={{fontSize: 60}}>Colorish</h1>
             <h2 className='subtitle is-size-4'>Deep learning network for color scheme generating.</h2>
+            <Link to='/generate' className='button is-large is-outlined is-dark'>Generate</Link>
           </div>
         </div>
       </section>

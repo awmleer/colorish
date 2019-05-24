@@ -24,7 +24,7 @@ def tensor_to_color_list(tensor):
         color = []
         rgb = colorsys.hsv_to_rgb(reshaped[i][0].item(), reshaped[i][1].item(), reshaped[i][2].item())
         for c in rgb:
-            color.append(round(c * 256))
+            color.append(min(round(c * 256), 255))
         result.append(color)
     return result
 

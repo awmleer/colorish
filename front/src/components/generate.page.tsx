@@ -3,7 +3,7 @@ import {GenerateStore} from '../stores/generate.store'
 import {useStore, withProvider} from 'reto'
 import React from 'react';
 import styled from 'styled-components'
-import {withRouter} from 'react-router'
+import {RouteComponentProps, withRouter} from 'react-router'
 import {SchemeDetail} from './scheme-detail'
 
 const Info = styled.div`
@@ -13,7 +13,7 @@ const Info = styled.div`
 
 export const GeneratePage = withProvider({
   of: GenerateStore
-})(withRouter(memo(function GeneratePage(props) {
+})(withRouter<RouteComponentProps>(memo(function GeneratePage(props) {
   const generateStore = useStore(GenerateStore)
   const {scheme, config} = generateStore.state
   

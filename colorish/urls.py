@@ -26,6 +26,7 @@ urlpatterns = [
     path('networks/', main_views.networks),
     path('network/<str:network_id>/', main_views.network),
     path('network/<str:network_id>/popular/', main_views.popular),
+    path('network/<str:network_id>/bulk-generate/', main_views.bulk_generate),
     path('scheme/<str:scheme_id>/', main_views.scheme_detail),
     path('toggle-like/<str:scheme_id>/', main_views.toggle_like),
     path('likes/', main_views.likes),
