@@ -1,5 +1,6 @@
 import json
 import os
+import random
 
 from django.contrib import auth
 from django.contrib.admin.views.decorators import staff_member_required
@@ -37,17 +38,23 @@ def login(request):
 @json_request
 def generate(request):
     user = request.user if request.user.is_authenticated else None
-    generated = generator.generate(
-        network_id=request.json['networkId']
-    )
-    scheme = Scheme(
-        view_count=1,
-        time=generated['time'],
-        network_id=generated['network_id'],
-        quality=generated['quality'],
-    )
-    scheme.set_colors(generated['colors'])
-    scheme.save()
+    schemes_count = Scheme.objects.filter(network_id=request.json['networkId']).count()
+    use_cache = random.choices([True, False], weights=[max(0, schemes_count - 1000), 1000])
+    if use_cache:
+        i = random.randint(0, schemes_count - 1)
+        scheme = Scheme.objects.order_by('id')[i]
+    else:
+        generated = generator.generate(
+            network_id=request.json['networkId']
+        )
+        scheme = Scheme(
+            view_count=1,
+            time=generated['time'],
+            network_id=generated['network_id'],
+            quality=generated['quality'],
+        )
+        scheme.set_colors(generated['colors'])
+        scheme.save()
     return JsonResponse(scheme.as_dict(user=user))
 
 
