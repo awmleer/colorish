@@ -23,12 +23,12 @@ def weights_init(m):
     # pass
     classname = m.__class__.__name__
     if 'Linear' in classname:
-        nn.init.normal_(m.weight.data, 0.048, 0.45)
+        nn.init.normal_(m.weight.data, 0.048, 0.48)
 
 generator.apply(weights_init)
 discriminator.apply(weights_init)
 
-color_file = open('data/kuler.txt')
+color_file = open('data/color.txt')
 color_file.seek(0, os.SEEK_END)
 color_file_size = color_file.tell()
 
@@ -49,7 +49,7 @@ def get_real_color_tensor():
             data.append(hsv[i])
     return torch.tensor(data)
 
-discriminator_learning_rate = 0.02
+discriminator_learning_rate = 0.009
 isFake = True
 
 def train_discriminator(i):
@@ -72,7 +72,7 @@ def train_discriminator(i):
 
     return output, loss.item()
 
-generator_learning_rate = 0.015
+generator_learning_rate = 0.01
 
 def train_generator(i):
     generator.zero_grad()
@@ -94,8 +94,8 @@ def sample():
 def do_training():
     training_generator = False
     total_loss = 0
-    total_round = 200
-    batch_size = 400
+    total_round = 220
+    batch_size = 600
     # loss_threshold_count = 0
     for i in range(total_round):
         current_mode = 'G' if training_generator else 'D'

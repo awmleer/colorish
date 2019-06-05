@@ -29,11 +29,14 @@ def init():
 
 init()
 
-def generate(network_id=None):
+def get_network(network_id=None):
     if network_id == '':
-        network = random.choice(networks)
+        n = random.choice(networks)
+        return n
     else:
-        network = network_dict[network_id]
+        return network_dict[network_id]
+
+def generate(network):
     start = time.time()
     generated = network['generator'](torch.rand(16))
     colors = tensor_to_color_list(generated)
